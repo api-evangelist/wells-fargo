@@ -1,0 +1,73 @@
+{
+    "name": "Wells Fargo",
+    "description": "Wells Fargo: Provider of banking, mortgage, investing, credit card, and personal, small business, and commercial financial services. Learn more.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/28160-developer-wellsfargo-com.jpg",
+    "tags": [
+        "banking",
+        "have api",
+        "us bank"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/wells-fargo\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Wells Fargo",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/28160-developer-wellsfargo-com.jpg",
+            "humanURL": "https:\/\/developer.wellsfargo.com",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/wells-fargo-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Contact Form",
+            "url": "https:\/\/developer.wellsfargo.com\/contact-us"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/wells-fargo-energy-capital"
+        },
+        {
+            "type": "Developers",
+            "url": "https:\/\/developer.wellsfargo.com\/"
+        },
+        {
+            "type": "Documentation",
+            "url": "https:\/\/developer.wellsfargo.com\/apis"
+        },
+        {
+            "type": "FAQ",
+            "url": "https:\/\/developer.wellsfargo.com\/faq"
+        },
+        {
+            "type": "Getting Started",
+            "url": "https:\/\/developer.wellsfargo.com\/how-it-works"
+        },
+        {
+            "type": "Privacy Policy",
+            "url": "https:\/\/www.wellsfargo.com\/privacy-security\/"
+        },
+        {
+            "type": "Terms of Service",
+            "url": "https:\/\/developer.wellsfargo.com\/tac"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/WellsFargo"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/developer.wellsfargo.com"
+        }
+    ]
+}
