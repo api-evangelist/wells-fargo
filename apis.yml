@@ -1,0 +1,20 @@
+aid: wells-fargo
+url: https://raw.githubusercontent.com/api-evangelist/wells-fargo/refs/heads/main/apis.yml
+apis:
+  - aid: wells-fargo:gateway-api
+    name: Wells Fargo Gateway API
+    tags:
+      - Banking
+      - Payments
+      - Open Banking
+      - Financial Services
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.wellsfargo.com
+    humanURL: https://developer.wellsfargo.com/
+    properties:
+      - url: https://developer.wellsfargo.com/apis
+        type: Documentation
+      - url: openapi/wells-fargo-gateway-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The Wells Fargo Gateway API is a comprehensive open banking platform launched in 2016, offering a growing catalog of plug-and-play APIs, SDKs, and webhooks for commercial customers and partners. The platform supports payments, real-time account information, and financial data integration across commercial banking, mortgage, credit card, and brokerage services. Built on RESTful principles with OAuth 2.0 authentication, the Gateway handles over 1.5 billion API calls annually.
