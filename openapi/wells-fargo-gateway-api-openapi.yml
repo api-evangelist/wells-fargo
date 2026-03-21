@@ -1,0 +1,117 @@
+openapi: 3.1.0
+info:
+  title: Wells Fargo Gateway API
+  description: >-
+    The Wells Fargo Gateway API is a comprehensive open banking platform
+    offering plug-and-play APIs, SDKs, and webhooks for commercial customers
+    and partners. The platform supports payments, real-time account
+    information, and financial data integration across commercial banking,
+    mortgage, credit card, and brokerage services. Built on RESTful
+    principles with OAuth 2.0 authentication.
+  version: '1.0'
+servers:
+  - url: https://api.wellsfargo.com
+tags:
+  - name: Accounts
+    description: Access account information and balances.
+  - name: Payments
+    description: Initiate and manage payments.
+  - name: Transactions
+    description: Retrieve transaction history and details.
+paths:
+  /accounts:
+    get:
+      operationId: listAccounts
+      summary: List accounts
+      description: >-
+        Retrieves a list of accounts associated with the authenticated
+        commercial customer, including account type, balance, and status.
+      tags:
+        - Accounts
+      responses:
+        '200':
+          description: Success
+  /payments:
+    get:
+      operationId: listPayments
+      summary: List payments
+      description: >-
+        Retrieves a list of payments initiated through the Gateway
+        platform with status, amount, and recipient details.
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Success
+    post:
+      operationId: createPayment
+      summary: Create a payment
+      description: >-
+        Initiates a new payment from the authenticated commercial
+        customer's account to a specified recipient.
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                currency:
+                  type: string
+                recipientAccount:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Payment initiated successfully
+  /transactions:
+    get:
+      operationId: listTransactions
+      summary: List transactions
+      description: >-
+        Retrieves a list of transactions for a specified account with
+        filtering by date range, amount, and transaction type.
+      tags:
+        - Transactions
+      parameters:
+        - name: accountId
+          in: query
+          description: The account identifier.
+          required: true
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          description: Filter transactions from this date.
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          description: Filter transactions up to this date.
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Success
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.wellsfargo.com/oauth2/authorize
+          tokenUrl: https://api.wellsfargo.com/oauth2/token
+          scopes:
+            accounts:read: Read account information
+            payments:write: Initiate payments
+            transactions:read: Read transaction history
+    bearerAuth:
+      type: http
+      scheme: bearer
