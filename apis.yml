@@ -1,16 +1,14 @@
 aid: wells-fargo
-url: 
-  https://raw.githubusercontent.com/api-evangelist/wells-fargo/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/wells-fargo/refs/heads/main/apis.yml
 apis:
   - aid: wells-fargo:gateway-api
     name: Wells Fargo Gateway API
     tags:
       - Banking
-      - Payments
-      - Open Banking
       - Financial Services
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Open Banking
+      - Payments
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.wellsfargo.com
     humanURL: https://developer.wellsfargo.com/
     properties:
