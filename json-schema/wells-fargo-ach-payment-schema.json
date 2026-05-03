@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wells-fargo/main/json-schema/wells-fargo-ach-payment-schema.json",
+  "title": "Wells Fargo ACH Payment",
+  "description": "Schema for a Wells Fargo ACH payment initiated through the ACH Payments API. Supports CCD, CTX, PPD, and WEB NACHA transaction codes for corporate and consumer ACH transactions.",
+  "type": "object",
+  "properties": {
+    "paymentId": {
+      "type": "string",
+      "description": "Unique ACH payment identifier."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["PENDING", "SUBMITTED", "SETTLED", "RETURNED", "REJECTED", "CANCELLED"],
+      "description": "Current payment lifecycle status."
+    },
+    "debitAccountId": {
+      "type": "string",
+      "description": "Wells Fargo account ID being debited."
+    },
+    "amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Payment amount."
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code.",
+      "example": "USD"
+    },
+    "creditAccountNumber": {
+      "type": "string",
+      "description": "Receiver's bank account number."
+    },
+    "creditRoutingNumber": {
+      "type": "string",
+      "description": "Receiver's bank routing/transit number (9 digits).",
+      "pattern": "^[0-9]{9}$"
+    },
+    "creditAccountType": {
+      "type": "string",
+      "enum": ["CHECKING", "SAVINGS"],
+      "description": "Receiver's account type."
+    },
+    "transactionCode": {
+      "type": "string",
+      "enum": ["CCD", "CTX", "PPD", "WEB"],
+      "description": "NACHA transaction code. CCD for corporate credits/debits, PPD for consumer."
+    },
+    "receiverName": {
+      "type": "string",
+      "description": "Name of the payment receiver."
+    },
+    "addendaInformation": {
+      "type": "string",
+      "maxLength": 80,
+      "description": "Optional payment addenda information (max 80 characters)."
+    },
+    "sameDayAch": {
+      "type": "boolean",
+      "description": "Whether same-day ACH processing was requested.",
+      "default": false
+    },
+    "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Requested ACH settlement date."
+    },
+    "settlementDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Actual settlement date."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the payment was created."
+    },
+    "traceNumber": {
+      "type": "string",
+      "description": "NACHA trace number assigned at submission."
+    }
+  },
+  "required": ["paymentId", "status", "debitAccountId", "amount", "currency", "creditAccountNumber", "creditRoutingNumber", "transactionCode"]
+}

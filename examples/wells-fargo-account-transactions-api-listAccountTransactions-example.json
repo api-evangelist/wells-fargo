@@ -1,0 +1,70 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.wellsfargo.com/v3/accounts/acct-1001/transactions?startDate=2026-04-01&endDate=2026-04-30&transactionType=ACH&pageSize=3",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transactions": [
+        {
+          "transactionId": "txn-20260428-00123",
+          "accountId": "acct-1001",
+          "transactionType": "ACH",
+          "debitCreditIndicator": "CREDIT",
+          "amount": 45000.00,
+          "currency": "USD",
+          "transactionDate": "2026-04-28",
+          "postingDate": "2026-04-28",
+          "description": "ACH CREDIT - CUSTOMER PAYMENT",
+          "status": "POSTED",
+          "counterpartyName": "Global Enterprises LLC",
+          "counterpartyAccountNumber": "****8877",
+          "counterpartyRoutingNumber": "026009593",
+          "referenceNumber": "ACH202604280001"
+        },
+        {
+          "transactionId": "txn-20260425-00091",
+          "accountId": "acct-1001",
+          "transactionType": "ACH",
+          "debitCreditIndicator": "DEBIT",
+          "amount": 8750.00,
+          "currency": "USD",
+          "transactionDate": "2026-04-25",
+          "postingDate": "2026-04-25",
+          "description": "ACH DEBIT - VENDOR PAYMENT INV-2026-0142",
+          "status": "POSTED",
+          "counterpartyName": "Acme Corp",
+          "counterpartyAccountNumber": "****4532",
+          "counterpartyRoutingNumber": "021000021",
+          "referenceNumber": "ACH202604250002"
+        },
+        {
+          "transactionId": "txn-20260420-00067",
+          "accountId": "acct-1001",
+          "transactionType": "ACH",
+          "debitCreditIndicator": "DEBIT",
+          "amount": 125000.00,
+          "currency": "USD",
+          "transactionDate": "2026-04-20",
+          "postingDate": "2026-04-20",
+          "description": "ACH DEBIT - PAYROLL RUN APR W2",
+          "status": "POSTED",
+          "counterpartyName": "PAYROLL SERVICES",
+          "counterpartyAccountNumber": "****9901",
+          "counterpartyRoutingNumber": "021000089",
+          "referenceNumber": "ACH202604200003"
+        }
+      ],
+      "nextPageToken": "eyJzdGFydEluZGV4IjozfQ==",
+      "totalCount": 34
+    }
+  }
+}

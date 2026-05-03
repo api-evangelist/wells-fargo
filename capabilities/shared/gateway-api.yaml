@@ -1,0 +1,209 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Wells Fargo Gateway API"
+  description: >-
+    The Wells Fargo Gateway API open banking platform supporting payments,
+    account information, and financial data integration for commercial banking
+    customers. Built on RESTful principles with OAuth 2.0, handling over 1.5
+    billion API calls annually.
+  tags:
+    - Banking
+    - Financial Services
+    - Open Banking
+    - Payments
+    - Commercial Banking
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WELLS_FARGO_GATEWAY_TOKEN: WELLS_FARGO_GATEWAY_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: wells-fargo-gateway
+      baseUri: https://api.wellsfargo.com
+      description: "Wells Fargo Gateway open banking API."
+      authentication:
+        type: bearer
+        token: "{{WELLS_FARGO_GATEWAY_TOKEN}}"
+      resources:
+        - name: accounts
+          path: /accounts
+          description: Account information and balances.
+          operations:
+            - name: list-accounts
+              method: GET
+              description: "List accounts for the authenticated commercial customer."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: payments
+          path: /payments
+          description: Payment initiation and management.
+          operations:
+            - name: list-payments
+              method: GET
+              description: "List payments initiated through the Gateway."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-payment
+              method: POST
+              description: "Initiate a new payment."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  amount: "{{tools.amount}}"
+                  currency: "{{tools.currency}}"
+                  recipientAccount: "{{tools.recipient_account}}"
+                  description: "{{tools.description}}"
+
+        - name: transactions
+          path: /transactions
+          description: Transaction history retrieval.
+          operations:
+            - name: list-transactions
+              method: GET
+              description: "List transactions for a specified account."
+              inputParameters:
+                - name: accountId
+                  in: query
+                  type: string
+                  required: true
+                  description: "Account identifier."
+                - name: startDate
+                  in: query
+                  type: string
+                  required: false
+                  description: "Start date filter."
+                - name: endDate
+                  in: query
+                  type: string
+                  required: false
+                  description: "End date filter."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: wells-fargo-gateway-rest
+      resources:
+        - path: /v1/accounts
+          name: accounts
+          operations:
+            - method: GET
+              name: list-accounts
+              description: "List commercial bank accounts."
+              call: "wells-fargo-gateway.list-accounts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/payments
+          name: payments
+          operations:
+            - method: GET
+              name: list-payments
+              description: "List payments."
+              call: "wells-fargo-gateway.list-payments"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-payment
+              description: "Initiate a new payment."
+              call: "wells-fargo-gateway.create-payment"
+              with:
+                amount: "rest.amount"
+                currency: "rest.currency"
+                recipient_account: "rest.recipientAccount"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/transactions
+          name: transactions
+          operations:
+            - method: GET
+              name: list-transactions
+              description: "List account transactions."
+              call: "wells-fargo-gateway.list-transactions"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: wells-fargo-gateway-mcp
+      transport: http
+      tools:
+        - name: list-bank-accounts
+          description: "List Wells Fargo commercial bank accounts for the authenticated customer."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "wells-fargo-gateway.list-accounts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-payments
+          description: "List payment history from the Wells Fargo Gateway."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "wells-fargo-gateway.list-payments"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: initiate-payment
+          description: "Initiate a new Wells Fargo Gateway payment to a recipient account."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "wells-fargo-gateway.create-payment"
+          with:
+            amount: "tools.amount"
+            currency: "tools.currency"
+            recipient_account: "tools.recipient_account"
+            description: "tools.description"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-account-transactions
+          description: "Get transaction history for a Wells Fargo account."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "wells-fargo-gateway.list-transactions"
+          with:
+            accountId: "tools.account_id"
+            startDate: "tools.start_date"
+            endDate: "tools.end_date"
+          outputParameters:
+            - type: object
+              mapping: "$."

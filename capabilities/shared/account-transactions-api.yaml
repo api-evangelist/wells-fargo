@@ -1,0 +1,214 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Wells Fargo Account Transactions API"
+  description: >-
+    Treasury management transaction reporting API enabling commercial banking
+    customers to search and retrieve ACH, Wire, and RTP/Instant Payment
+    transactions with up to 180 days of history and real-time intraday reporting.
+  tags:
+    - Banking
+    - Financial Services
+    - Transactions
+    - Treasury Management
+    - Account Management
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WELLS_FARGO_TRANSACTIONS_TOKEN: WELLS_FARGO_TRANSACTIONS_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: wells-fargo-transactions
+      baseUri: https://api.wellsfargo.com
+      description: "Wells Fargo Account Transactions API for treasury reporting."
+      authentication:
+        type: bearer
+        token: "{{WELLS_FARGO_TRANSACTIONS_TOKEN}}"
+      resources:
+        - name: accounts
+          path: /v3/accounts
+          description: Account information.
+          operations:
+            - name: list-accounts
+              method: GET
+              description: "List accounts for the authenticated customer."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: account-balances
+          path: /v3/accounts/{accountId}/balances
+          description: Real-time account balance information.
+          operations:
+            - name: get-account-balances
+              method: GET
+              description: "Get current and available balances for an account."
+              inputParameters:
+                - name: accountId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Wells Fargo account ID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: account-transactions
+          path: /v3/accounts/{accountId}/transactions
+          description: Transaction history for an account.
+          operations:
+            - name: list-account-transactions
+              method: GET
+              description: "List transactions for an account (up to 180 days)."
+              inputParameters:
+                - name: accountId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Wells Fargo account ID."
+                - name: startDate
+                  in: query
+                  type: string
+                  required: false
+                  description: "Start date (YYYY-MM-DD)."
+                - name: endDate
+                  in: query
+                  type: string
+                  required: false
+                  description: "End date (YYYY-MM-DD)."
+                - name: transactionType
+                  in: query
+                  type: string
+                  required: false
+                  description: "Transaction type filter (ACH, WIRE, RTP, CHECK, FED_NOW)."
+                - name: pageSize
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Results per page."
+                - name: pageToken
+                  in: query
+                  type: string
+                  required: false
+                  description: "Pagination token."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-transaction-detail
+              method: GET
+              description: "Get details for a specific transaction."
+              inputParameters:
+                - name: accountId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Wells Fargo account ID."
+                - name: transactionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Unique transaction ID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8101
+      namespace: wells-fargo-transactions-rest
+      resources:
+        - path: /v1/accounts
+          name: accounts
+          operations:
+            - method: GET
+              name: list-accounts
+              description: "List accounts."
+              call: "wells-fargo-transactions.list-accounts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/accounts/{accountId}/balances
+          name: balances
+          operations:
+            - method: GET
+              name: get-balances
+              description: "Get account balances."
+              call: "wells-fargo-transactions.get-account-balances"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/accounts/{accountId}/transactions
+          name: transactions
+          operations:
+            - method: GET
+              name: list-transactions
+              description: "List account transactions."
+              call: "wells-fargo-transactions.list-account-transactions"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9101
+      namespace: wells-fargo-transactions-mcp
+      transport: http
+      tools:
+        - name: get-account-balance
+          description: "Get real-time ledger and available balance for a Wells Fargo account."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "wells-fargo-transactions.get-account-balances"
+          with:
+            accountId: "tools.account_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-account-transactions
+          description: "Search transaction history for a Wells Fargo account by date range or type."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "wells-fargo-transactions.list-account-transactions"
+          with:
+            accountId: "tools.account_id"
+            startDate: "tools.start_date"
+            endDate: "tools.end_date"
+            transactionType: "tools.transaction_type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-transaction-detail
+          description: "Get full detail for a specific Wells Fargo transaction by ID."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "wells-fargo-transactions.get-transaction-detail"
+          with:
+            accountId: "tools.account_id"
+            transactionId: "tools.transaction_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

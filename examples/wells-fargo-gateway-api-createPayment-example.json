@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.wellsfargo.com/payments",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "amount": 5000.00,
+      "currency": "USD",
+      "recipientAccount": "987654321",
+      "description": "Vendor invoice payment INV-2026-0142"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "paymentId": "pmt-2026-001234",
+      "status": "PENDING",
+      "amount": 5000.00,
+      "currency": "USD",
+      "recipientAccount": "987654321",
+      "description": "Vendor invoice payment INV-2026-0142",
+      "createdAt": "2026-05-03T14:30:00Z",
+      "estimatedSettlement": "2026-05-03T17:00:00Z"
+    }
+  }
+}

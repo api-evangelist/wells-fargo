@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.wellsfargo.com/v2/ach/payments",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "debitAccountId": "acct-1001",
+      "amount": 12500.00,
+      "currency": "USD",
+      "creditAccountNumber": "123456789012",
+      "creditRoutingNumber": "021000021",
+      "creditAccountType": "CHECKING",
+      "transactionCode": "CCD",
+      "receiverName": "Acme Corp Payables",
+      "addendaInformation": "INV-2026-0298 payment",
+      "sameDayAch": false,
+      "effectiveDate": "2026-05-05"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "paymentId": "ach-2026-0059876",
+      "status": "PENDING",
+      "debitAccountId": "acct-1001",
+      "amount": 12500.00,
+      "currency": "USD",
+      "creditAccountNumber": "123456789012",
+      "creditRoutingNumber": "021000021",
+      "transactionCode": "CCD",
+      "receiverName": "Acme Corp Payables",
+      "effectiveDate": "2026-05-05",
+      "createdAt": "2026-05-03T09:15:00Z",
+      "traceNumber": null
+    }
+  }
+}

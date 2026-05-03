@@ -1,0 +1,20 @@
+{
+  "name": "Wells Fargo Transaction",
+  "description": "Structure of a Wells Fargo commercial banking transaction from the Account Transactions API.",
+  "fields": [
+    { "name": "transactionId", "type": "string", "required": true, "description": "Unique transaction ID." },
+    { "name": "accountId", "type": "string", "required": true, "description": "Wells Fargo account identifier." },
+    { "name": "transactionType", "type": "string", "required": true, "description": "Payment type: ACH, WIRE, RTP, CHECK, or FED_NOW." },
+    { "name": "debitCreditIndicator", "type": "string", "required": true, "description": "DEBIT or CREDIT to the account." },
+    { "name": "amount", "type": "number", "required": true, "description": "Transaction amount." },
+    { "name": "currency", "type": "string", "required": true, "description": "ISO 4217 currency code (e.g., USD)." },
+    { "name": "transactionDate", "type": "date", "required": true, "description": "Date the transaction occurred." },
+    { "name": "postingDate", "type": "date", "required": false, "description": "Date the transaction posted to the account." },
+    { "name": "description", "type": "string", "required": false, "description": "Transaction description or memo." },
+    { "name": "status", "type": "string", "required": true, "description": "Transaction status: POSTED, PENDING, or RETURNED." },
+    { "name": "counterpartyName", "type": "string", "required": false, "description": "Counterparty name." },
+    { "name": "counterpartyAccountNumber", "type": "string", "required": false, "description": "Masked counterparty account number." },
+    { "name": "counterpartyRoutingNumber", "type": "string", "required": false, "description": "Counterparty bank routing number." },
+    { "name": "referenceNumber", "type": "string", "required": false, "description": "Bank reference or NACHA trace number." }
+  ]
+}

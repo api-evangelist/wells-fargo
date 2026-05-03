@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/wells-fargo/main/json-schema/wells-fargo-transaction-schema.json",
+  "title": "Wells Fargo Transaction",
+  "description": "Schema for a Wells Fargo commercial banking transaction including ACH, Wire, RTP, and FedNow payment types returned by the Account Transactions API.",
+  "type": "object",
+  "properties": {
+    "transactionId": {
+      "type": "string",
+      "description": "Unique transaction identifier assigned by Wells Fargo."
+    },
+    "accountId": {
+      "type": "string",
+      "description": "Wells Fargo account identifier."
+    },
+    "transactionType": {
+      "type": "string",
+      "enum": ["ACH", "WIRE", "RTP", "CHECK", "FED_NOW"],
+      "description": "Payment rail or transaction type."
+    },
+    "debitCreditIndicator": {
+      "type": "string",
+      "enum": ["DEBIT", "CREDIT"],
+      "description": "Whether this is a debit or credit to the account."
+    },
+    "amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Transaction amount."
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code.",
+      "example": "USD"
+    },
+    "transactionDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the transaction occurred."
+    },
+    "postingDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the transaction was posted to the account."
+    },
+    "description": {
+      "type": "string",
+      "description": "Transaction description or memo."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["POSTED", "PENDING", "RETURNED"],
+      "description": "Current transaction status."
+    },
+    "counterpartyName": {
+      "type": "string",
+      "description": "Name of the sending or receiving party."
+    },
+    "counterpartyAccountNumber": {
+      "type": "string",
+      "description": "Masked counterparty account number."
+    },
+    "counterpartyRoutingNumber": {
+      "type": "string",
+      "description": "Counterparty bank routing/transit number."
+    },
+    "referenceNumber": {
+      "type": "string",
+      "description": "Bank reference or trace number."
+    }
+  },
+  "required": ["transactionId", "accountId", "transactionType", "debitCreditIndicator", "amount", "currency", "transactionDate", "status"]
+}

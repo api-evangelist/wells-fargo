@@ -1,0 +1,129 @@
+extends: spectral:oas
+rules:
+  # API versioning conventions
+  api-versioned-paths:
+    description: All Wells Fargo API paths must include a version segment (/v1/, /v2/, /v3/).
+    message: "Path '{{property}}' must include a version prefix (e.g., /v2/, /v3/)."
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/v[0-9]+"
+
+  # OAuth 2.0 required
+  oauth2-security-scheme:
+    description: APIs must use OAuth 2.0 security scheme.
+    message: "Security scheme must use OAuth 2.0 client credentials flow."
+    severity: error
+    given: "$.components.securitySchemes[*]"
+    then:
+      field: type
+      function: enumeration
+      functionOptions:
+        values: [oauth2]
+
+  # Scoped security on all operations
+  operation-security-scopes:
+    description: All operations must declare security requirements with scopes.
+    message: "Operation '{{path}}' must define OAuth 2.0 security scopes."
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: security
+      function: defined
+
+  # Operation IDs required
+  operation-id-required:
+    description: All operations must have an operationId.
+    message: "Operation at '{{path}}' must define an operationId."
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: defined
+
+  # Operation IDs must be lowerCamelCase
+  operation-id-camel-case:
+    description: Operation IDs must use lowerCamelCase naming.
+    message: "OperationId '{{value}}' must use lowerCamelCase."
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  # Path parameters use lowerCamelCase
+  path-params-camel-case:
+    description: Path parameter names should use lowerCamelCase.
+    message: "Path parameter '{{value}}' should use lowerCamelCase."
+    severity: warn
+    given: "$.paths[*][*].parameters[?(@.in=='path')].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  # Query parameters use lowerCamelCase
+  query-params-camel-case:
+    description: Query parameter names should use lowerCamelCase.
+    message: "Query parameter '{{value}}' should use lowerCamelCase."
+    severity: warn
+    given: "$.paths[*][*].parameters[?(@.in=='query')].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z_][a-zA-Z0-9_]*$"
+
+  # Summaries required
+  operation-summary-required:
+    description: All operations must have a summary.
+    message: "Operation at '{{path}}' must have a summary."
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: summary
+      function: defined
+
+  # Summaries must use Title Case
+  operation-summary-title-case:
+    description: Operation summaries must use Title Case.
+    message: "Summary '{{value}}' should use Title Case."
+    severity: warn
+    given: "$.paths[*][*].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  # 401 response defined on secured operations
+  response-401-defined:
+    description: Operations with security must define a 401 response.
+    message: "Secured operation at '{{path}}' must define 401 Unauthorized response."
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      field: "401"
+      function: defined
+
+  # 400 response on POST/PUT operations
+  response-400-on-write:
+    description: POST and PUT operations must define a 400 response for validation errors.
+    message: "Write operation at '{{path}}' must define a 400 Bad Request response."
+    severity: warn
+    given: "$.paths[*][post,put].responses"
+    then:
+      field: "400"
+      function: defined
+
+  # Pagination parameters standardized
+  pagination-page-size-param:
+    description: Paginated GET endpoints should use pageSize and pageToken parameters.
+    message: "Paginated endpoint should use 'pageSize' and 'pageToken' as pagination parameters."
+    severity: hint
+    given: "$.paths[*].get.parameters[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(pageSize|pageToken|startDate|endDate|[a-z][a-zA-Z0-9]*)$"

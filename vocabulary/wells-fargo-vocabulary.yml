@@ -1,0 +1,104 @@
+vocabulary:
+  provider: Wells Fargo
+  description: >-
+    Vocabulary for Wells Fargo, a diversified financial services company providing
+    commercial banking, treasury management, and open banking APIs. Covers
+    payments, account management, ACH, wire transfer, real-time payments, and
+    treasury management terminology.
+  tags:
+    - Banking
+    - Financial Services
+    - Payments
+    - Treasury Management
+    - Open Banking
+    - Commercial Banking
+
+  domains:
+    - name: Accounts and Banking
+      terms:
+        - term: Account ID
+          definition: Wells Fargo's internal identifier for a commercial banking account.
+        - term: Ledger Balance
+          definition: Total balance in an account including all posted transactions, regardless of holds.
+        - term: Available Balance
+          definition: Funds immediately available for use after accounting for holds and pending transactions.
+        - term: Intraday Position
+          definition: Real-time account balance updated throughout the business day as transactions are processed.
+        - term: DDA (Demand Deposit Account)
+          definition: Checking account from which funds can be withdrawn at any time.
+        - term: Money Market Account
+          definition: Interest-bearing account with limited transaction capabilities.
+
+    - name: Payments and Payment Rails
+      terms:
+        - term: ACH (Automated Clearing House)
+          definition: Electronic network for financial transactions including direct deposits, bill payments, and business-to-business payments.
+        - term: Same-Day ACH
+          definition: ACH payment processing within the same business day, settling in the afternoon or evening batch.
+        - term: Wire Transfer
+          definition: Electronic transfer of funds via the Fedwire network for high-value, same-day settlement.
+        - term: RTP (Real-Time Payments)
+          definition: The Clearing House Real-Time Payments network enabling instant 24/7/365 payment settlement.
+        - term: FedNow
+          definition: Federal Reserve's instant payment service for 24/7 real-time payment and settlement.
+        - term: Intelligent Routing
+          definition: Wells Fargo's automatic selection of the optimal payment rail (RTP, FedNow, ACH) for each transaction.
+        - term: Gateway API
+          definition: Wells Fargo's open banking API platform handling over 1.5 billion API calls annually for commercial customers.
+        - term: Push to Card
+          definition: Real-time payment method that pushes funds to a debit card via Visa Direct or Mastercard Send.
+        - term: Zelle
+          definition: P2P and business payment service integrated with Wells Fargo for instant transfers to other bank accounts.
+
+    - name: ACH Specifics
+      terms:
+        - term: NACHA
+          definition: National Automated Clearing House Association - governing body for the ACH network in the US.
+        - term: CCD (Corporate Credit or Debit)
+          definition: NACHA transaction code for single corporate ACH payments.
+        - term: PPD (Prearranged Payment and Deposit)
+          definition: NACHA transaction code for consumer ACH credits and debits.
+        - term: CTX (Corporate Trade Exchange)
+          definition: NACHA transaction code for corporate payments with multiple addenda records.
+        - term: WEB (Internet-Initiated Entry)
+          definition: NACHA transaction code for consumer debit transactions authorized via the internet.
+        - term: Trace Number
+          definition: 15-digit NACHA identifier assigned to each ACH entry for tracking and reconciliation.
+        - term: ACH Return
+          definition: Reversal of an ACH transaction by the receiving bank due to incorrect account info, insufficient funds, or other reasons.
+        - term: NOC (Notification of Change)
+          definition: ACH notification sent when account or routing information for a transaction needs to be updated.
+        - term: Prenote
+          definition: Zero-dollar ACH test transaction sent before a live payment to verify account details.
+        - term: Effective Date
+          definition: Requested ACH settlement date specified by the originator.
+
+    - name: Treasury Management
+      terms:
+        - term: Treasury Management
+          definition: Suite of financial services helping businesses manage cash flow, payments, and liquidity.
+        - term: Payables
+          definition: Outbound payment processing including ACH, wire, and check payments to vendors and suppliers.
+        - term: Receivables
+          definition: Collection of inbound payments from customers through ACH debits and other payment methods.
+        - term: Positive Pay
+          definition: Fraud prevention service matching issued checks or ACH transactions against expected payments.
+        - term: Previous Day Reporting
+          definition: Account balance and transaction report reflecting all activity posted as of prior business day.
+        - term: Intraday Reporting
+          definition: Real-time balance and transaction reporting updated continuously throughout the business day.
+        - term: Balance Reporting
+          definition: Service providing current, available, and collected balance information for accounts.
+        - term: Multibank Reporting
+          definition: Consolidated reporting across accounts at multiple financial institutions.
+
+    - name: Developer and API
+      terms:
+        - term: OAuth 2.0
+          definition: Authorization framework used by Wells Fargo APIs for secure client authentication.
+        - term: Client Credentials
+          definition: OAuth 2.0 flow used by Wells Fargo APIs for machine-to-machine authentication without user interaction.
+        - term: Sandbox Environment
+          definition: Test environment at Wells Fargo Developer Portal for integrating and testing APIs before production.
+        - term: Webhook
+          definition: HTTP callback notifying integrated systems of payment events such as settlement or return.

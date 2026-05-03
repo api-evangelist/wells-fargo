@@ -1,0 +1,47 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "wf": "https://developer.wellsfargo.com/vocab#",
+
+    "WellsFargoAccount": "schema:BankAccount",
+    "WellsFargoPayment": "schema:PayAction",
+    "WellsFargoTransaction": "schema:TransferAction",
+    "WellsFargoACHPayment": "schema:MoneyTransfer",
+    "WellsFargoWireTransfer": "schema:MoneyTransfer",
+    "WellsFargoCustomer": "schema:Organization",
+
+    "accountId": { "@id": "schema:identifier", "@type": "xsd:string" },
+    "accountNumber": { "@id": "wf:accountNumber", "@type": "xsd:string" },
+    "accountType": { "@id": "wf:accountType", "@type": "xsd:string" },
+    "accountName": { "@id": "schema:name", "@type": "xsd:string" },
+    "ledgerBalance": { "@id": "wf:ledgerBalance", "@type": "xsd:decimal" },
+    "availableBalance": { "@id": "wf:availableBalance", "@type": "xsd:decimal" },
+    "intradayPosition": { "@id": "wf:intradayPosition", "@type": "xsd:decimal" },
+    "currency": { "@id": "schema:currency", "@type": "xsd:string" },
+
+    "transactionId": { "@id": "schema:identifier", "@type": "xsd:string" },
+    "transactionType": { "@id": "wf:transactionType", "@type": "xsd:string" },
+    "debitCreditIndicator": { "@id": "wf:debitCreditIndicator", "@type": "xsd:string" },
+    "amount": { "@id": "schema:price", "@type": "xsd:decimal" },
+    "transactionDate": { "@id": "schema:startTime", "@type": "xsd:date" },
+    "postingDate": { "@id": "wf:postingDate", "@type": "xsd:date" },
+    "transactionStatus": { "@id": "wf:transactionStatus", "@type": "xsd:string" },
+    "counterpartyName": { "@id": "schema:recipient", "@type": "xsd:string" },
+    "referenceNumber": { "@id": "schema:orderNumber", "@type": "xsd:string" },
+
+    "paymentId": { "@id": "schema:identifier", "@type": "xsd:string" },
+    "paymentStatus": { "@id": "wf:paymentStatus", "@type": "xsd:string" },
+    "debitAccountId": { "@id": "schema:fromLocation", "@type": "xsd:string" },
+    "creditAccountNumber": { "@id": "schema:toLocation", "@type": "xsd:string" },
+    "creditRoutingNumber": { "@id": "wf:routingNumber", "@type": "xsd:string" },
+    "transactionCode": { "@id": "wf:nachaTransactionCode", "@type": "xsd:string" },
+    "receiverName": { "@id": "schema:recipient", "@type": "xsd:string" },
+    "effectiveDate": { "@id": "schema:scheduledTime", "@type": "xsd:date" },
+    "settlementDate": { "@id": "wf:settlementDate", "@type": "xsd:date" },
+    "traceNumber": { "@id": "wf:traceNumber", "@type": "xsd:string" },
+    "sameDayAch": { "@id": "wf:sameDayAch", "@type": "xsd:boolean" }
+  }
+}

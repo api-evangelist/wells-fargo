@@ -1,0 +1,22 @@
+{
+  "name": "Wells Fargo ACH Payment",
+  "description": "Structure of a Wells Fargo ACH payment from the ACH Payments API.",
+  "fields": [
+    { "name": "paymentId", "type": "string", "required": true, "description": "Unique ACH payment identifier." },
+    { "name": "status", "type": "string", "required": true, "description": "Payment status: PENDING, SUBMITTED, SETTLED, RETURNED, REJECTED, or CANCELLED." },
+    { "name": "debitAccountId", "type": "string", "required": true, "description": "Wells Fargo account being debited." },
+    { "name": "amount", "type": "number", "required": true, "description": "Payment amount." },
+    { "name": "currency", "type": "string", "required": true, "description": "ISO 4217 currency code." },
+    { "name": "creditAccountNumber", "type": "string", "required": true, "description": "Receiver's bank account number." },
+    { "name": "creditRoutingNumber", "type": "string", "required": true, "description": "Receiver's bank routing number (9 digits)." },
+    { "name": "creditAccountType", "type": "string", "required": false, "description": "Receiver's account type: CHECKING or SAVINGS." },
+    { "name": "transactionCode", "type": "string", "required": true, "description": "NACHA code: CCD (corporate), CTX, PPD (consumer), WEB." },
+    { "name": "receiverName", "type": "string", "required": false, "description": "Receiver's name (max 22 characters per NACHA)." },
+    { "name": "addendaInformation", "type": "string", "required": false, "description": "Optional payment memo (max 80 characters)." },
+    { "name": "sameDayAch", "type": "boolean", "required": false, "description": "Whether same-day ACH was requested." },
+    { "name": "effectiveDate", "type": "date", "required": false, "description": "Requested ACH settlement date." },
+    { "name": "settlementDate", "type": "date", "required": false, "description": "Actual settlement date." },
+    { "name": "createdAt", "type": "dateTime", "required": false, "description": "Payment creation timestamp." },
+    { "name": "traceNumber", "type": "string", "required": false, "description": "NACHA trace number assigned at submission." }
+  ]
+}

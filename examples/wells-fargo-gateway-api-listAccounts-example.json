@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.wellsfargo.com/accounts",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "accounts": [
+        {
+          "accountId": "acct-1001",
+          "accountNumber": "****7890",
+          "accountType": "CHECKING",
+          "accountName": "Business Operating Account",
+          "currency": "USD",
+          "status": "ACTIVE",
+          "currentBalance": 125432.50,
+          "availableBalance": 118950.00
+        },
+        {
+          "accountId": "acct-1002",
+          "accountNumber": "****4321",
+          "accountType": "MONEY_MARKET",
+          "accountName": "Reserve Account",
+          "currency": "USD",
+          "status": "ACTIVE",
+          "currentBalance": 500000.00,
+          "availableBalance": 500000.00
+        }
+      ],
+      "totalCount": 2
+    }
+  }
+}
