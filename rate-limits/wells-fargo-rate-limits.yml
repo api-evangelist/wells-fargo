@@ -4,89 +4,34 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: wells-fargo
 providerId: wells-fargo
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
+  - Banking
+  - Open Banking
+  - Payments
+  - Treasury
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the wells-fargo API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  - Contact Sales
+description: Wells Fargo does not publish public rate-limit numbers for its Open Banking APIs. Throughput,
+  concurrency, and quota are governed by the partner agreement and the gateway provisioning at
+  onboarding; clients see specifics only after access is granted via the developer portal.
+notes: Public developer.wellsfargo.com landing confirms partner model; no public rate-limit page found.
+sources:
+  - https://developer.wellsfargo.com/
+responseCodes: {}
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Wells Fargo Gateway API
-      - Wells Fargo Account Transactions API
-      - Wells Fargo ACH Payments API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Wells Fargo Gateway API
-      - Wells Fargo Account Transactions API
-      - Wells Fargo ACH Payments API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Wells Fargo Gateway API
-      - Wells Fargo Account Transactions API
-      - Wells Fargo ACH Payments API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Wells Fargo Gateway API
-      - Wells Fargo Account Transactions API
-      - Wells Fargo ACH Payments API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
+  - name: Partner Throughput
     scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Wells Fargo Gateway API
-      - Wells Fargo Account Transactions API
-      - Wells Fargo ACH Payments API
+    metric: varies
+    limit: see Wells Fargo partner / treasury agreement
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers: []
+  - name: Contract-Defined Limits
+    description: Per-second / per-minute throughput, daily caps, and concurrency are set during
+      partner onboarding and documented in the gated developer portal.
+  - name: Idempotency on Payments
+    description: Payment-initiation endpoints in Open Banking patterns require idempotency keys; clients
+      should retry with the same key on transient failures.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

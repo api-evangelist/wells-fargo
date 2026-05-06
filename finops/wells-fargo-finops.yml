@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,141 +9,71 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: wells-fargo
 providerId: wells-fargo
-publisherName: wells-fargo
-serviceCategory: API
+publisherName: Wells Fargo Bank, N.A.
+serviceCategory: Banking / Open Banking
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
+  - Banking
+  - Open Banking
+  - Payments
+  - Treasury
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the wells-fargo API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+  - Contact Sales
+description: FinOps placement for Wells Fargo Open Banking APIs. Cost is bundled into the treasury /
+  commercial-banking relationship rather than published as per-call API pricing; FOCUS mapping
+  reflects bank-fee billing.
+notes: No public per-call price list. FOCUS columns reflect the treasury / commercial-banking invoice
+  shape only.
+sources:
+  - https://developer.wellsfargo.com/
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Bank Fees / Partner Agreement
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
     - Usage
     - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
 focusColumns:
-  ServiceName: wells-fargo
-  ServiceCategory: Developer Tools / API
-  ProviderName: wells-fargo
-  PublisherName: wells-fargo
-  InvoiceIssuerName: wells-fargo
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceName: Wells Fargo Open Banking APIs
+  ServiceCategory: Banking / Open Banking
+  ProviderName: Wells Fargo
+  PublisherName: Wells Fargo Bank, N.A.
+  InvoiceIssuerName: Wells Fargo Bank, N.A.
   BillingCurrency: USD
-  ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
+  - name: payment_transactions
+    description: Count of payment-initiation / wire / ACH calls executed via the Open Banking
+      Payments APIs; priced through the treasury services schedule.
+    unit: transaction
+    aggregation: sum
+    dimensions:
+      - rail
+      - account
+  - name: data_calls
+    description: Count of account-information / balance / transaction-history calls via the Open
+      Banking Data APIs; pricing depends on the partner agreement.
     unit: request
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: Wells Fargo Gateway API
-    baseURL: https://api.wellsfargo.com
-    tags:
-      - Banking
-      - Financial Services
-      - Open Banking
-      - Payments
-      - Treasury Management
-      - Commercial Banking
-    serviceName: Wells Fargo Gateway API
-    serviceCategory: API
-  - name: Wells Fargo Account Transactions API
-    baseURL: https://api.wellsfargo.com
-    tags:
-      - Banking
-      - Financial Services
-      - Account Management
-      - Transactions
-      - Treasury Management
-    serviceName: Wells Fargo Account Transactions API
-    serviceCategory: API
-  - name: Wells Fargo ACH Payments API
-    baseURL: https://api.wellsfargo.com
-    tags:
-      - Banking
-      - Financial Services
-      - Payments
-      - ACH
-      - Treasury Management
-    serviceName: Wells Fargo ACH Payments API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
-maintainers: []
+      - product
+      - account
+principles:
+  - name: Visibility
+    description: Spend visibility is via the Wells Fargo Commercial Electronic Office (CEO) account
+      analysis statement and any partner-portal reporting provisioned at onboarding.
+  - name: Allocation
+    description: Allocate API-driven banking spend by account, legal entity, or product line using
+      the Wells Fargo account hierarchy and your internal cost-center tags on the integrating
+      application.
+  - name: Optimization
+    description: Cost levers are payment-rail selection (ACH vs wire vs RTP), batching, and renegotiation
+      of the treasury services schedule; idempotency on payments avoids duplicate-charge incidents.
+  - name: Accountability
+    description: Treasury operations and the bank's relationship manager hold accountability;
+      engineering owns idempotency, retry, and reconciliation hygiene.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
