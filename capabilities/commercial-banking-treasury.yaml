@@ -1,336 +1,619 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Wells Fargo Commercial Banking Treasury"
-  description: >-
-    Unified treasury management capability combining the Wells Fargo Gateway API,
-    Account Transactions API, and ACH Payments API. Enables commercial banking
-    customers, treasury managers, and ERP systems to manage accounts, initiate
-    payments across multiple rails, monitor transaction activity, and process
-    ACH batch payables and receivables through a single integrated interface.
+  label: Wells Fargo Commercial Banking Treasury
+  description: Unified treasury management capability combining the Wells Fargo Gateway API, Account Transactions API, and
+    ACH Payments API. Enables commercial banking customers, treasury managers, and ERP systems to manage accounts, initiate
+    payments across multiple rails, monitor transaction activity, and process ACH batch payables and receivables through a
+    single integrated interface.
   tags:
-    - Banking
-    - Financial Services
-    - Treasury Management
-    - Commercial Banking
-    - Payments
-    - ACH
-    - Open Banking
-  created: "2026-05-03"
-  modified: "2026-05-03"
-
+  - Banking
+  - Financial Services
+  - Treasury Management
+  - Commercial Banking
+  - Payments
+  - ACH
+  - Open Banking
+  created: '2026-05-03'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      WELLS_FARGO_GATEWAY_TOKEN: WELLS_FARGO_GATEWAY_TOKEN
-      WELLS_FARGO_TRANSACTIONS_TOKEN: WELLS_FARGO_TRANSACTIONS_TOKEN
-      WELLS_FARGO_ACH_TOKEN: WELLS_FARGO_ACH_TOKEN
-
+- namespace: env
+  keys:
+    WELLS_FARGO_GATEWAY_TOKEN: WELLS_FARGO_GATEWAY_TOKEN
+    WELLS_FARGO_TRANSACTIONS_TOKEN: WELLS_FARGO_TRANSACTIONS_TOKEN
+    WELLS_FARGO_ACH_TOKEN: WELLS_FARGO_ACH_TOKEN
 capability:
   consumes:
-    - import: wells-fargo-gateway
-      location: ./shared/gateway-api.yaml
-    - import: wells-fargo-transactions
-      location: ./shared/account-transactions-api.yaml
-    - import: wells-fargo-ach
-      location: ./shared/ach-payments-api.yaml
-
+  - type: http
+    namespace: wells-fargo-gateway
+    baseUri: https://api.wellsfargo.com
+    description: Wells Fargo Gateway open banking API.
+    authentication:
+      type: bearer
+      token: '{{WELLS_FARGO_GATEWAY_TOKEN}}'
+    resources:
+    - name: accounts
+      path: /accounts
+      description: Account information and balances.
+      operations:
+      - name: list-accounts
+        method: GET
+        description: List accounts for the authenticated commercial customer.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: payments
+      path: /payments
+      description: Payment initiation and management.
+      operations:
+      - name: list-payments
+        method: GET
+        description: List payments initiated through the Gateway.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-payment
+        method: POST
+        description: Initiate a new payment.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            amount: '{{tools.amount}}'
+            currency: '{{tools.currency}}'
+            recipientAccount: '{{tools.recipient_account}}'
+            description: '{{tools.description}}'
+    - name: transactions
+      path: /transactions
+      description: Transaction history retrieval.
+      operations:
+      - name: list-transactions
+        method: GET
+        description: List transactions for a specified account.
+        inputParameters:
+        - name: accountId
+          in: query
+          type: string
+          required: true
+          description: Account identifier.
+        - name: startDate
+          in: query
+          type: string
+          required: false
+          description: Start date filter.
+        - name: endDate
+          in: query
+          type: string
+          required: false
+          description: End date filter.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: wells-fargo-transactions
+    baseUri: https://api.wellsfargo.com
+    description: Wells Fargo Account Transactions API for treasury reporting.
+    authentication:
+      type: bearer
+      token: '{{WELLS_FARGO_TRANSACTIONS_TOKEN}}'
+    resources:
+    - name: accounts
+      path: /v3/accounts
+      description: Account information.
+      operations:
+      - name: list-accounts
+        method: GET
+        description: List accounts for the authenticated customer.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: account-balances
+      path: /v3/accounts/{accountId}/balances
+      description: Real-time account balance information.
+      operations:
+      - name: get-account-balances
+        method: GET
+        description: Get current and available balances for an account.
+        inputParameters:
+        - name: accountId
+          in: path
+          type: string
+          required: true
+          description: Wells Fargo account ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: account-transactions
+      path: /v3/accounts/{accountId}/transactions
+      description: Transaction history for an account.
+      operations:
+      - name: list-account-transactions
+        method: GET
+        description: List transactions for an account (up to 180 days).
+        inputParameters:
+        - name: accountId
+          in: path
+          type: string
+          required: true
+          description: Wells Fargo account ID.
+        - name: startDate
+          in: query
+          type: string
+          required: false
+          description: Start date (YYYY-MM-DD).
+        - name: endDate
+          in: query
+          type: string
+          required: false
+          description: End date (YYYY-MM-DD).
+        - name: transactionType
+          in: query
+          type: string
+          required: false
+          description: Transaction type filter (ACH, WIRE, RTP, CHECK, FED_NOW).
+        - name: pageSize
+          in: query
+          type: integer
+          required: false
+          description: Results per page.
+        - name: pageToken
+          in: query
+          type: string
+          required: false
+          description: Pagination token.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-transaction-detail
+        method: GET
+        description: Get details for a specific transaction.
+        inputParameters:
+        - name: accountId
+          in: path
+          type: string
+          required: true
+          description: Wells Fargo account ID.
+        - name: transactionId
+          in: path
+          type: string
+          required: true
+          description: Unique transaction ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: wells-fargo-ach
+    baseUri: https://api.wellsfargo.com
+    description: Wells Fargo ACH Payments API.
+    authentication:
+      type: bearer
+      token: '{{WELLS_FARGO_ACH_TOKEN}}'
+    resources:
+    - name: ach-payments
+      path: /v2/ach/payments
+      description: ACH payment initiation and management.
+      operations:
+      - name: initiate-ach-payment
+        method: POST
+        description: Initiate a single ACH credit or debit transaction.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            debitAccountId: '{{tools.debit_account_id}}'
+            amount: '{{tools.amount}}'
+            currency: '{{tools.currency}}'
+            creditAccountNumber: '{{tools.credit_account_number}}'
+            creditRoutingNumber: '{{tools.credit_routing_number}}'
+            creditAccountType: '{{tools.credit_account_type}}'
+            transactionCode: '{{tools.transaction_code}}'
+            receiverName: '{{tools.receiver_name}}'
+            addendaInformation: '{{tools.addenda}}'
+            sameDayAch: '{{tools.same_day}}'
+            effectiveDate: '{{tools.effective_date}}'
+      - name: list-ach-payments
+        method: GET
+        description: List ACH payments.
+        inputParameters:
+        - name: startDate
+          in: query
+          type: string
+          required: false
+          description: Start date filter.
+        - name: endDate
+          in: query
+          type: string
+          required: false
+          description: End date filter.
+        - name: status
+          in: query
+          type: string
+          required: false
+          description: Status filter.
+        - name: pageSize
+          in: query
+          type: integer
+          required: false
+          description: Page size.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-ach-payment
+        method: GET
+        description: Get ACH payment status and details.
+        inputParameters:
+        - name: paymentId
+          in: path
+          type: string
+          required: true
+          description: ACH payment ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: cancel-ach-payment
+        method: DELETE
+        description: Cancel a pending ACH payment.
+        inputParameters:
+        - name: paymentId
+          in: path
+          type: string
+          required: true
+          description: ACH payment ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ach-batches
+      path: /v2/ach/batches
+      description: Batch ACH payment file submission.
+      operations:
+      - name: submit-ach-batch
+        method: POST
+        description: Submit a batch ACH payment file.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            companyName: '{{tools.company_name}}'
+            effectiveDate: '{{tools.effective_date}}'
+            transactions: '{{tools.transactions}}'
+    - name: ach-returns
+      path: /v2/ach/returns
+      description: ACH return and NOC processing.
+      operations:
+      - name: list-ach-returns
+        method: GET
+        description: List ACH returns and NOCs.
+        inputParameters:
+        - name: startDate
+          in: query
+          type: string
+          required: false
+          description: Start date.
+        - name: endDate
+          in: query
+          type: string
+          required: false
+          description: End date.
+        - name: returnType
+          in: query
+          type: string
+          required: false
+          description: Return type (RETURN or NOC).
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: wells-fargo-treasury-api
-      description: "Unified REST API for Wells Fargo commercial banking treasury management."
-      resources:
-        - path: /v1/accounts
-          name: accounts
-          description: "Commercial bank account management."
-          operations:
-            - method: GET
-              name: list-accounts
-              description: "List all accounts for the authenticated commercial customer."
-              call: "wells-fargo-transactions.list-accounts"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/accounts/{accountId}/balances
-          name: balances
-          description: "Real-time account balance information."
-          operations:
-            - method: GET
-              name: get-balances
-              description: "Get current and available balances for an account."
-              call: "wells-fargo-transactions.get-account-balances"
-              with:
-                accountId: "rest.accountId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/transactions
-          name: transactions
-          description: "Account transaction history (Gateway)."
-          operations:
-            - method: GET
-              name: list-transactions
-              description: "List account transactions via Gateway."
-              call: "wells-fargo-gateway.list-transactions"
-              with:
-                accountId: "rest.accountId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/accounts/{accountId}/transactions
-          name: account-transactions
-          description: "Detailed transaction reporting (up to 180 days)."
-          operations:
-            - method: GET
-              name: list-account-transactions
-              description: "List detailed transaction history for an account."
-              call: "wells-fargo-transactions.list-account-transactions"
-              with:
-                accountId: "rest.accountId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/payments
-          name: payments
-          description: "Gateway payment management."
-          operations:
-            - method: GET
-              name: list-payments
-              description: "List payments initiated through the Gateway."
-              call: "wells-fargo-gateway.list-payments"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-payment
-              description: "Initiate a payment via Gateway."
-              call: "wells-fargo-gateway.create-payment"
-              with:
-                amount: "rest.amount"
-                currency: "rest.currency"
-                recipient_account: "rest.recipientAccount"
-                description: "rest.description"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/ach-payments
-          name: ach-payments
-          description: "ACH payment initiation and tracking."
-          operations:
-            - method: GET
-              name: list-ach-payments
-              description: "List ACH payments."
-              call: "wells-fargo-ach.list-ach-payments"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: initiate-ach-payment
-              description: "Initiate an ACH credit or debit payment."
-              call: "wells-fargo-ach.initiate-ach-payment"
-              with:
-                debit_account_id: "rest.debitAccountId"
-                amount: "rest.amount"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/ach-batches
-          name: ach-batches
-          description: "ACH batch file processing."
-          operations:
-            - method: POST
-              name: submit-ach-batch
-              description: "Submit a batch ACH payment file."
-              call: "wells-fargo-ach.submit-ach-batch"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/ach-returns
-          name: ach-returns
-          description: "ACH return and NOC management."
-          operations:
-            - method: GET
-              name: list-ach-returns
-              description: "List ACH returns and NOCs."
-              call: "wells-fargo-ach.list-ach-returns"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: wells-fargo-treasury-mcp
-      transport: http
-      description: "MCP server for AI-assisted Wells Fargo commercial banking treasury management."
-      tools:
-        - name: list-commercial-accounts
-          description: "List all Wells Fargo commercial bank accounts for the authenticated customer."
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "wells-fargo-transactions.list-accounts"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-account-balance
-          description: "Get real-time ledger and available balance for a Wells Fargo account."
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "wells-fargo-transactions.get-account-balances"
-          with:
-            accountId: "tools.account_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: search-transactions
-          description: "Search detailed transaction history for a Wells Fargo account (up to 180 days). Supports ACH, Wire, RTP, and FedNow transaction types."
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "wells-fargo-transactions.list-account-transactions"
-          with:
-            accountId: "tools.account_id"
-            startDate: "tools.start_date"
-            endDate: "tools.end_date"
-            transactionType: "tools.transaction_type"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-transaction-detail
-          description: "Get full detail for a specific Wells Fargo transaction."
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "wells-fargo-transactions.get-transaction-detail"
-          with:
-            accountId: "tools.account_id"
-            transactionId: "tools.transaction_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: initiate-gateway-payment
-          description: "Initiate a payment via Wells Fargo Gateway (supports intelligent routing to RTP/FedNow/ACH)."
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "wells-fargo-gateway.create-payment"
-          with:
-            amount: "tools.amount"
-            currency: "tools.currency"
-            recipient_account: "tools.recipient_account"
-            description: "tools.description"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-gateway-payments
-          description: "List payment history from the Wells Fargo Gateway platform."
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "wells-fargo-gateway.list-payments"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: initiate-ach-payment
-          description: "Initiate a single ACH credit or debit payment via Wells Fargo. Supports CCD, CTX, PPD, and WEB transaction codes."
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "wells-fargo-ach.initiate-ach-payment"
-          with:
-            debit_account_id: "tools.debit_account_id"
-            amount: "tools.amount"
-            currency: "tools.currency"
-            credit_account_number: "tools.credit_account_number"
-            credit_routing_number: "tools.credit_routing_number"
-            receiver_name: "tools.receiver_name"
-            same_day: "tools.same_day_ach"
-            effective_date: "tools.effective_date"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-ach-payments
-          description: "List ACH payment history and status."
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "wells-fargo-ach.list-ach-payments"
-          with:
-            startDate: "tools.start_date"
-            endDate: "tools.end_date"
-            status: "tools.status"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-ach-payment-status
-          description: "Get current status and settlement details of an ACH payment."
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "wells-fargo-ach.get-ach-payment"
-          with:
-            paymentId: "tools.payment_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: cancel-ach-payment
-          description: "Cancel a pending ACH payment before it is submitted to the ACH network."
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "wells-fargo-ach.cancel-ach-payment"
-          with:
-            paymentId: "tools.payment_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: submit-ach-batch
-          description: "Submit a batch ACH payment file with multiple credit or debit transactions."
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "wells-fargo-ach.submit-ach-batch"
-          with:
-            company_name: "tools.company_name"
-            effective_date: "tools.effective_date"
-            transactions: "tools.transactions"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-ach-returns
-          description: "List ACH returns and Notifications of Change (NOC) for monitoring payment exceptions."
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "wells-fargo-ach.list-ach-returns"
-          with:
-            startDate: "tools.start_date"
-            endDate: "tools.end_date"
-            returnType: "tools.return_type"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: wells-fargo-treasury-api
+    description: Unified REST API for Wells Fargo commercial banking treasury management.
+    resources:
+    - path: /v1/accounts
+      name: accounts
+      description: Commercial bank account management.
+      operations:
+      - method: GET
+        name: list-accounts
+        description: List all accounts for the authenticated commercial customer.
+        call: wells-fargo-transactions.list-accounts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{accountId}/balances
+      name: balances
+      description: Real-time account balance information.
+      operations:
+      - method: GET
+        name: get-balances
+        description: Get current and available balances for an account.
+        call: wells-fargo-transactions.get-account-balances
+        with:
+          accountId: rest.accountId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/transactions
+      name: transactions
+      description: Account transaction history (Gateway).
+      operations:
+      - method: GET
+        name: list-transactions
+        description: List account transactions via Gateway.
+        call: wells-fargo-gateway.list-transactions
+        with:
+          accountId: rest.accountId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{accountId}/transactions
+      name: account-transactions
+      description: Detailed transaction reporting (up to 180 days).
+      operations:
+      - method: GET
+        name: list-account-transactions
+        description: List detailed transaction history for an account.
+        call: wells-fargo-transactions.list-account-transactions
+        with:
+          accountId: rest.accountId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payments
+      name: payments
+      description: Gateway payment management.
+      operations:
+      - method: GET
+        name: list-payments
+        description: List payments initiated through the Gateway.
+        call: wells-fargo-gateway.list-payments
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-payment
+        description: Initiate a payment via Gateway.
+        call: wells-fargo-gateway.create-payment
+        with:
+          amount: rest.amount
+          currency: rest.currency
+          recipient_account: rest.recipientAccount
+          description: rest.description
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ach-payments
+      name: ach-payments
+      description: ACH payment initiation and tracking.
+      operations:
+      - method: GET
+        name: list-ach-payments
+        description: List ACH payments.
+        call: wells-fargo-ach.list-ach-payments
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: initiate-ach-payment
+        description: Initiate an ACH credit or debit payment.
+        call: wells-fargo-ach.initiate-ach-payment
+        with:
+          debit_account_id: rest.debitAccountId
+          amount: rest.amount
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ach-batches
+      name: ach-batches
+      description: ACH batch file processing.
+      operations:
+      - method: POST
+        name: submit-ach-batch
+        description: Submit a batch ACH payment file.
+        call: wells-fargo-ach.submit-ach-batch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ach-returns
+      name: ach-returns
+      description: ACH return and NOC management.
+      operations:
+      - method: GET
+        name: list-ach-returns
+        description: List ACH returns and NOCs.
+        call: wells-fargo-ach.list-ach-returns
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: wells-fargo-treasury-mcp
+    transport: http
+    description: MCP server for AI-assisted Wells Fargo commercial banking treasury management.
+    tools:
+    - name: list-commercial-accounts
+      description: List all Wells Fargo commercial bank accounts for the authenticated customer.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: wells-fargo-transactions.list-accounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-account-balance
+      description: Get real-time ledger and available balance for a Wells Fargo account.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: wells-fargo-transactions.get-account-balances
+      with:
+        accountId: tools.account_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-transactions
+      description: Search detailed transaction history for a Wells Fargo account (up to 180 days). Supports ACH, Wire, RTP,
+        and FedNow transaction types.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: wells-fargo-transactions.list-account-transactions
+      with:
+        accountId: tools.account_id
+        startDate: tools.start_date
+        endDate: tools.end_date
+        transactionType: tools.transaction_type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-transaction-detail
+      description: Get full detail for a specific Wells Fargo transaction.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: wells-fargo-transactions.get-transaction-detail
+      with:
+        accountId: tools.account_id
+        transactionId: tools.transaction_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: initiate-gateway-payment
+      description: Initiate a payment via Wells Fargo Gateway (supports intelligent routing to RTP/FedNow/ACH).
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: wells-fargo-gateway.create-payment
+      with:
+        amount: tools.amount
+        currency: tools.currency
+        recipient_account: tools.recipient_account
+        description: tools.description
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-gateway-payments
+      description: List payment history from the Wells Fargo Gateway platform.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: wells-fargo-gateway.list-payments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: initiate-ach-payment
+      description: Initiate a single ACH credit or debit payment via Wells Fargo. Supports CCD, CTX, PPD, and WEB transaction
+        codes.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: wells-fargo-ach.initiate-ach-payment
+      with:
+        debit_account_id: tools.debit_account_id
+        amount: tools.amount
+        currency: tools.currency
+        credit_account_number: tools.credit_account_number
+        credit_routing_number: tools.credit_routing_number
+        receiver_name: tools.receiver_name
+        same_day: tools.same_day_ach
+        effective_date: tools.effective_date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-ach-payments
+      description: List ACH payment history and status.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: wells-fargo-ach.list-ach-payments
+      with:
+        startDate: tools.start_date
+        endDate: tools.end_date
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-ach-payment-status
+      description: Get current status and settlement details of an ACH payment.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: wells-fargo-ach.get-ach-payment
+      with:
+        paymentId: tools.payment_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-ach-payment
+      description: Cancel a pending ACH payment before it is submitted to the ACH network.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: wells-fargo-ach.cancel-ach-payment
+      with:
+        paymentId: tools.payment_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: submit-ach-batch
+      description: Submit a batch ACH payment file with multiple credit or debit transactions.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: wells-fargo-ach.submit-ach-batch
+      with:
+        company_name: tools.company_name
+        effective_date: tools.effective_date
+        transactions: tools.transactions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-ach-returns
+      description: List ACH returns and Notifications of Change (NOC) for monitoring payment exceptions.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: wells-fargo-ach.list-ach-returns
+      with:
+        startDate: tools.start_date
+        endDate: tools.end_date
+        returnType: tools.return_type
+      outputParameters:
+      - type: object
+        mapping: $.
