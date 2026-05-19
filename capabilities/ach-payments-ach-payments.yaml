@@ -1,0 +1,213 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Wells Fargo ACH Payments API — ACH Payments
+  description: 'Wells Fargo ACH Payments API — ACH Payments. 4 operations. Lead operation: Initiate ACH Payment. Self-contained
+    Naftiko capability covering one Wells Fargo business surface.'
+  tags:
+  - Wells Fargo
+  - ACH Payments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WELLS_FARGO_API_KEY: WELLS_FARGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ach-payments-ach-payments
+    baseUri: https://api.wellsfargo.com
+    description: Wells Fargo ACH Payments API — ACH Payments business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-ach-payments
+      path: /v2/ach/payments
+      operations:
+      - name: initiateachpayment
+        method: POST
+        description: Initiate ACH Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listachpayments
+        method: GET
+        description: List ACH Payments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startDate
+          in: query
+          type: string
+          description: Filter by payment initiation start date (YYYY-MM-DD).
+        - name: endDate
+          in: query
+          type: string
+          description: Filter by payment initiation end date (YYYY-MM-DD).
+        - name: status
+          in: query
+          type: string
+          description: Filter by payment status.
+        - name: pageSize
+          in: query
+          type: integer
+        - name: pageToken
+          in: query
+          type: string
+    - name: v2-ach-payments-paymentId
+      path: /v2/ach/payments/{paymentId}
+      operations:
+      - name: getachpayment
+        method: GET
+        description: Get ACH Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: paymentId
+          in: path
+          type: string
+          description: The ACH payment identifier.
+          required: true
+      - name: cancelachpayment
+        method: DELETE
+        description: Cancel ACH Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: paymentId
+          in: path
+          type: string
+          description: The ACH payment identifier.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.WELLS_FARGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: ach-payments-ach-payments-rest
+    port: 8080
+    description: REST adapter for Wells Fargo ACH Payments API — ACH Payments. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v2/ach/payments
+      name: v2-ach-payments
+      description: REST surface for v2-ach-payments.
+      operations:
+      - method: POST
+        name: initiateachpayment
+        description: Initiate ACH Payment
+        call: ach-payments-ach-payments.initiateachpayment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listachpayments
+        description: List ACH Payments
+        call: ach-payments-ach-payments.listachpayments
+        with:
+          startDate: rest.startDate
+          endDate: rest.endDate
+          status: rest.status
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/ach/payments/{paymentid}
+      name: v2-ach-payments-paymentid
+      description: REST surface for v2-ach-payments-paymentId.
+      operations:
+      - method: GET
+        name: getachpayment
+        description: Get ACH Payment
+        call: ach-payments-ach-payments.getachpayment
+        with:
+          paymentId: rest.paymentId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: cancelachpayment
+        description: Cancel ACH Payment
+        call: ach-payments-ach-payments.cancelachpayment
+        with:
+          paymentId: rest.paymentId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ach-payments-ach-payments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Wells Fargo ACH Payments API — ACH Payments. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: initiate-ach-payment
+      description: Initiate ACH Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ach-payments-ach-payments.initiateachpayment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-ach-payments
+      description: List ACH Payments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ach-payments-ach-payments.listachpayments
+      with:
+        startDate: tools.startDate
+        endDate: tools.endDate
+        status: tools.status
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-ach-payment
+      description: Get ACH Payment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ach-payments-ach-payments.getachpayment
+      with:
+        paymentId: tools.paymentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-ach-payment
+      description: Cancel ACH Payment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: ach-payments-ach-payments.cancelachpayment
+      with:
+        paymentId: tools.paymentId
+      outputParameters:
+      - type: object
+        mapping: $.

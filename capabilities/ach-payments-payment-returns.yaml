@@ -1,0 +1,91 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Wells Fargo ACH Payments API — Payment Returns
+  description: 'Wells Fargo ACH Payments API — Payment Returns. 1 operations. Lead operation: List ACH Returns. Self-contained
+    Naftiko capability covering one Wells Fargo business surface.'
+  tags:
+  - Wells Fargo
+  - Payment Returns
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WELLS_FARGO_API_KEY: WELLS_FARGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ach-payments-payment-returns
+    baseUri: https://api.wellsfargo.com
+    description: Wells Fargo ACH Payments API — Payment Returns business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-ach-returns
+      path: /v2/ach/returns
+      operations:
+      - name: listachreturns
+        method: GET
+        description: List ACH Returns
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startDate
+          in: query
+          type: string
+          description: Filter returns from this date.
+        - name: endDate
+          in: query
+          type: string
+          description: Filter returns up to this date.
+        - name: returnType
+          in: query
+          type: string
+          description: Filter by return type (RETURN or NOC).
+    authentication:
+      type: bearer
+      token: '{{env.WELLS_FARGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: ach-payments-payment-returns-rest
+    port: 8080
+    description: REST adapter for Wells Fargo ACH Payments API — Payment Returns. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v2/ach/returns
+      name: v2-ach-returns
+      description: REST surface for v2-ach-returns.
+      operations:
+      - method: GET
+        name: listachreturns
+        description: List ACH Returns
+        call: ach-payments-payment-returns.listachreturns
+        with:
+          startDate: rest.startDate
+          endDate: rest.endDate
+          returnType: rest.returnType
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ach-payments-payment-returns-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Wells Fargo ACH Payments API — Payment Returns. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-ach-returns
+      description: List ACH Returns
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ach-payments-payment-returns.listachreturns
+      with:
+        startDate: tools.startDate
+        endDate: tools.endDate
+        returnType: tools.returnType
+      outputParameters:
+      - type: object
+        mapping: $.

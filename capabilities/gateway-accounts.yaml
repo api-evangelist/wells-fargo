@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Wells Fargo Gateway API — Accounts
+  description: 'Wells Fargo Gateway API — Accounts. 1 operations. Lead operation: List accounts. Self-contained Naftiko capability
+    covering one Wells Fargo business surface.'
+  tags:
+  - Wells Fargo
+  - Accounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WELLS_FARGO_API_KEY: WELLS_FARGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: gateway-accounts
+    baseUri: https://api.wellsfargo.com
+    description: Wells Fargo Gateway API — Accounts business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts
+      path: /accounts
+      operations:
+      - name: listaccounts
+        method: GET
+        description: List accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.WELLS_FARGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: gateway-accounts-rest
+    port: 8080
+    description: REST adapter for Wells Fargo Gateway API — Accounts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/accounts
+      name: accounts
+      description: REST surface for accounts.
+      operations:
+      - method: GET
+        name: listaccounts
+        description: List accounts
+        call: gateway-accounts.listaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gateway-accounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Wells Fargo Gateway API — Accounts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-accounts
+      description: List accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gateway-accounts.listaccounts
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,92 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Wells Fargo Gateway API — Transactions
+  description: 'Wells Fargo Gateway API — Transactions. 1 operations. Lead operation: List transactions. Self-contained Naftiko
+    capability covering one Wells Fargo business surface.'
+  tags:
+  - Wells Fargo
+  - Transactions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WELLS_FARGO_API_KEY: WELLS_FARGO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: gateway-transactions
+    baseUri: https://api.wellsfargo.com
+    description: Wells Fargo Gateway API — Transactions business capability. Self-contained, no shared references.
+    resources:
+    - name: transactions
+      path: /transactions
+      operations:
+      - name: listtransactions
+        method: GET
+        description: List transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: query
+          type: string
+          description: The account identifier.
+          required: true
+        - name: startDate
+          in: query
+          type: string
+          description: Filter transactions from this date.
+        - name: endDate
+          in: query
+          type: string
+          description: Filter transactions up to this date.
+    authentication:
+      type: bearer
+      token: '{{env.WELLS_FARGO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: gateway-transactions-rest
+    port: 8080
+    description: REST adapter for Wells Fargo Gateway API — Transactions. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/transactions
+      name: transactions
+      description: REST surface for transactions.
+      operations:
+      - method: GET
+        name: listtransactions
+        description: List transactions
+        call: gateway-transactions.listtransactions
+        with:
+          accountId: rest.accountId
+          startDate: rest.startDate
+          endDate: rest.endDate
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gateway-transactions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Wells Fargo Gateway API — Transactions. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-transactions
+      description: List transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: gateway-transactions.listtransactions
+      with:
+        accountId: tools.accountId
+        startDate: tools.startDate
+        endDate: tools.endDate
+      outputParameters:
+      - type: object
+        mapping: $.
