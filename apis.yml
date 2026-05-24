@@ -21,6 +21,8 @@ common:
     url: json-ld/wells-fargo-context.jsonld
   - type: Vocabulary
     url: vocabulary/wells-fargo-vocabulary.yml
+  - type: LLMsTxt
+    url: https://developer.wellsfargo.com/llms.txt
 apis:
   - aid: wells-fargo:gateway-api
     name: Wells Fargo Gateway API
