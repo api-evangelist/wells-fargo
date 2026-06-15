@@ -1,0 +1,1403 @@
+{
+  "item": [
+    {
+      "id": "6154bbbb-b61c-4c24-9ab1-6e63edda116e",
+      "name": "ACH Payments",
+      "description": {
+        "content": "Initiate and manage ACH credit and debit transactions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "afc22d30-1418-48c6-b59f-bb99716b8606",
+          "name": "Initiate ACH Payment",
+          "request": {
+            "name": "Initiate ACH Payment",
+            "description": {
+              "content": "Initiates a single ACH credit or debit transaction. Supports standard ACH and same-day ACH processing. The intelligent routing engine may upgrade eligible transactions to RTP or FedNow for faster settlement.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "ach",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "payments:read payments:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.wellsfargo.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"<string>\",\n  \"creditAccountNumber\": \"<string>\",\n  \"creditRoutingNumber\": \"<string>\",\n  \"transactionCode\": \"<string>\",\n  \"creditAccountType\": \"<string>\",\n  \"receiverName\": \"<string>\",\n  \"addendaInformation\": \"<string>\",\n  \"sameDayAch\": false,\n  \"effectiveDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f86ca206-de0e-4e70-9f8c-8510692a3f42",
+              "name": "ACH payment initiated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"USD\",\n  \"creditAccountNumber\": \"<string>\",\n  \"creditRoutingNumber\": \"<string>\",\n  \"transactionCode\": \"<string>\",\n  \"creditAccountType\": \"<string>\",\n  \"receiverName\": \"<string>\",\n  \"addendaInformation\": \"<string>\",\n  \"sameDayAch\": false,\n  \"effectiveDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentId\": \"string\",\n  \"status\": \"SETTLED\",\n  \"debitAccountId\": \"string\",\n  \"amount\": 3928.7573241031737,\n  \"currency\": \"string\",\n  \"creditAccountNumber\": \"string\",\n  \"creditRoutingNumber\": \"string\",\n  \"transactionCode\": \"string\",\n  \"receiverName\": \"string\",\n  \"effectiveDate\": \"2014-11-25\",\n  \"settlementDate\": \"1992-09-30\",\n  \"createdAt\": \"1951-06-04T09:33:12.912Z\",\n  \"traceNumber\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cbb541f-9444-4e2d-aeac-19d09b41613d",
+              "name": "Bad request - validation error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"USD\",\n  \"creditAccountNumber\": \"<string>\",\n  \"creditRoutingNumber\": \"<string>\",\n  \"transactionCode\": \"<string>\",\n  \"creditAccountType\": \"<string>\",\n  \"receiverName\": \"<string>\",\n  \"addendaInformation\": \"<string>\",\n  \"sameDayAch\": false,\n  \"effectiveDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "443be524-4abd-45fc-a934-ee4c20ba0b28",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"USD\",\n  \"creditAccountNumber\": \"<string>\",\n  \"creditRoutingNumber\": \"<string>\",\n  \"transactionCode\": \"<string>\",\n  \"creditAccountType\": \"<string>\",\n  \"receiverName\": \"<string>\",\n  \"addendaInformation\": \"<string>\",\n  \"sameDayAch\": false,\n  \"effectiveDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bcaecdfc-6ff2-4869-9235-0a1b85d49c2c",
+              "name": "Unprocessable entity - business rule violation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"debitAccountId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"currency\": \"USD\",\n  \"creditAccountNumber\": \"<string>\",\n  \"creditRoutingNumber\": \"<string>\",\n  \"transactionCode\": \"<string>\",\n  \"creditAccountType\": \"<string>\",\n  \"receiverName\": \"<string>\",\n  \"addendaInformation\": \"<string>\",\n  \"sameDayAch\": false,\n  \"effectiveDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f29e42a8-723d-4e4d-8a91-bd153625fda1",
+          "name": "List ACH Payments",
+          "request": {
+            "name": "List ACH Payments",
+            "description": {
+              "content": "Retrieves a list of ACH payments initiated by the authenticated customer, with optional filtering by date range, status, and payment type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "ach",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Filter by payment initiation start date (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "Filter by payment initiation end date (YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by payment status."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "payments:read payments:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.wellsfargo.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2ef9aa8a-726c-49e1-b599-a94092af3a96",
+              "name": "ACH payment list returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payments\": [\n    {\n      \"paymentId\": \"string\",\n      \"status\": \"PENDING\",\n      \"debitAccountId\": \"string\",\n      \"amount\": 7021.515146215238,\n      \"currency\": \"string\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"string\",\n      \"receiverName\": \"string\",\n      \"effectiveDate\": \"2003-03-14\",\n      \"settlementDate\": \"1973-01-24\",\n      \"createdAt\": \"1957-01-22T13:17:03.453Z\",\n      \"traceNumber\": \"string\"\n    },\n    {\n      \"paymentId\": \"string\",\n      \"status\": \"SETTLED\",\n      \"debitAccountId\": \"string\",\n      \"amount\": 9621.192732225296,\n      \"currency\": \"string\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"string\",\n      \"receiverName\": \"string\",\n      \"effectiveDate\": \"2006-12-14\",\n      \"settlementDate\": \"1968-01-22\",\n      \"createdAt\": \"1983-04-24T08:59:38.377Z\",\n      \"traceNumber\": \"string\"\n    }\n  ],\n  \"nextPageToken\": \"string\",\n  \"totalCount\": 357\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "001e3168-9581-4dfd-83ab-ab395d209644",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49e6f5ba-5bac-4cf5-8237-6aa8aafe3b09",
+          "name": "Get ACH Payment",
+          "request": {
+            "name": "Get ACH Payment",
+            "description": {
+              "content": "Retrieves the details and current status of a specific ACH payment by its payment ID, including settlement information and any return codes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "ach",
+                "payments",
+                ":paymentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentId",
+                  "description": "(Required) The ACH payment identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "payments:read payments:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.wellsfargo.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0899231c-ae27-43f2-b5a5-ade5126ba537",
+              "name": "ACH payment returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) The ACH payment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentId\": \"string\",\n  \"status\": \"SETTLED\",\n  \"debitAccountId\": \"string\",\n  \"amount\": 3928.7573241031737,\n  \"currency\": \"string\",\n  \"creditAccountNumber\": \"string\",\n  \"creditRoutingNumber\": \"string\",\n  \"transactionCode\": \"string\",\n  \"receiverName\": \"string\",\n  \"effectiveDate\": \"2014-11-25\",\n  \"settlementDate\": \"1992-09-30\",\n  \"createdAt\": \"1951-06-04T09:33:12.912Z\",\n  \"traceNumber\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5497a36d-b9d7-4b83-80c6-5da04884fc7d",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) The ACH payment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "182b7500-8285-409d-82a9-1e1c83d1deb3",
+              "name": "Payment not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) The ACH payment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20b43123-2fd9-466d-baa6-3e5d8fca2d5b",
+          "name": "Cancel ACH Payment",
+          "request": {
+            "name": "Cancel ACH Payment",
+            "description": {
+              "content": "Cancels a pending ACH payment that has not yet been submitted to the ACH network. Only payments in PENDING status can be cancelled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "ach",
+                "payments",
+                ":paymentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentId",
+                  "description": "(Required) The ACH payment identifier."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "payments:read payments:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.wellsfargo.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7d10cf76-197e-4718-8194-2bb4f4c84237",
+              "name": "Payment cancelled successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) The ACH payment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd6755ff-7cf5-48b6-a244-51ad8d675523",
+              "name": "Bad request - payment cannot be cancelled in current status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) The ACH payment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac06f21a-459e-4bc4-8022-8e529f0f2faf",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) The ACH payment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8cf3efaf-6eee-475e-9739-44683eb5e7f2",
+              "name": "Payment not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "payments",
+                    ":paymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentId",
+                      "description": "(Required) The ACH payment identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "24d7ef7d-c86e-40db-bcbb-5a41d13ed59b",
+      "name": "Payment Batches",
+      "description": {
+        "content": "Batch ACH payment file management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aa089d34-8fa0-4673-9e3d-27e560b54bfd",
+          "name": "Submit ACH Batch",
+          "request": {
+            "name": "Submit ACH Batch",
+            "description": {
+              "content": "Submits a batch ACH payment file (NACHA-formatted or JSON) containing multiple ACH transactions for processing in a single submission. Supports CTX, CCD, PPD, and WEB ACH transaction codes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "ach",
+                "batches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "payments:read payments:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.wellsfargo.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"transactions\": [\n    {\n      \"debitAccountId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"creditAccountNumber\": \"<string>\",\n      \"creditRoutingNumber\": \"<string>\",\n      \"transactionCode\": \"<string>\",\n      \"creditAccountType\": \"<string>\",\n      \"receiverName\": \"<string>\",\n      \"addendaInformation\": \"<string>\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"<date>\"\n    },\n    {\n      \"debitAccountId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"creditAccountNumber\": \"<string>\",\n      \"creditRoutingNumber\": \"<string>\",\n      \"transactionCode\": \"<string>\",\n      \"creditAccountType\": \"<string>\",\n      \"receiverName\": \"<string>\",\n      \"addendaInformation\": \"<string>\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"<date>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f2f86fc7-754d-4788-8506-4edca6794ac5",
+              "name": "Batch submitted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "batches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"transactions\": [\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 902.1595741216425,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"WEB\",\n      \"creditAccountType\": \"SAVINGS\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"1999-01-26\"\n    },\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 5641.728708068868,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"CTX\",\n      \"creditAccountType\": \"SAVINGS\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"1997-02-21\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"string\",\n  \"status\": \"COMPLETED\",\n  \"transactionCount\": 9114,\n  \"totalDebitAmount\": 5154.141940086457,\n  \"totalCreditAmount\": 6961.695534466131,\n  \"createdAt\": \"1957-10-21T16:14:09.893Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68f74974-7eaa-48ff-af8d-72fd33284bfc",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "batches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"transactions\": [\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 902.1595741216425,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"WEB\",\n      \"creditAccountType\": \"SAVINGS\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"1999-01-26\"\n    },\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 5641.728708068868,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"CTX\",\n      \"creditAccountType\": \"SAVINGS\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"1997-02-21\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5c6ccc66-0c08-4dcc-ae7b-d0b556495b33",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "batches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"transactions\": [\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 902.1595741216425,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"WEB\",\n      \"creditAccountType\": \"SAVINGS\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"1999-01-26\"\n    },\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 5641.728708068868,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"CTX\",\n      \"creditAccountType\": \"SAVINGS\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"1997-02-21\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "18d6d1a7-d1f5-4c05-9b08-09855b46b72a",
+      "name": "Payment Returns",
+      "description": {
+        "content": "ACH return and NOC (Notification of Change) processing.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "65032a57-a3e1-49d9-ba7b-0e89e511fcf6",
+          "name": "List ACH Returns",
+          "request": {
+            "name": "List ACH Returns",
+            "description": {
+              "content": "Retrieves ACH returns and Notifications of Change (NOC) for the authenticated customer, including return reason codes, original transaction details, and resolution guidance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "ach",
+                "returns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Filter returns from this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "Filter returns up to this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "returnType",
+                  "value": "<string>",
+                  "description": "Filter by return type (RETURN or NOC)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "payments:read payments:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.wellsfargo.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5c88e23e-691e-438a-8113-27100ecbfa16",
+              "name": "ACH returns returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "returnType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"returns\": [\n    {\n      \"returnId\": \"string\",\n      \"originalPaymentId\": \"string\",\n      \"returnType\": \"RETURN\",\n      \"returnCode\": \"string\",\n      \"returnReason\": \"string\",\n      \"returnDate\": \"1962-06-28\",\n      \"amount\": 8197.008056202985\n    },\n    {\n      \"returnId\": \"string\",\n      \"originalPaymentId\": \"string\",\n      \"returnType\": \"RETURN\",\n      \"returnCode\": \"string\",\n      \"returnReason\": \"string\",\n      \"returnDate\": \"1990-03-03\",\n      \"amount\": 8943.151686200397\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bebfe2a0-e691-4bb8-b5eb-51a6dbd85cb7",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "returnType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wellsfargo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "203e74fe-d91c-45e9-b150-f8587221b71a",
+    "name": "Wells Fargo ACH Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Wells Fargo ACH Payments API enables commercial banking customers to initiate ACH credit and debit transactions, including same-day ACH, for payroll, vendor payments, and collections. The API integrates with Wells Fargo's intelligent payment routing that automatically selects the optimal payment rail including RTP, FedNow, and ACH for each transaction. OAuth 2.0 client credentials flow is used for authentication. The API is available through the Wells Fargo Developer Portal at developer.wellsfargo.com.",
+      "type": "text/plain"
+    }
+  }
+}

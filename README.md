@@ -1,83 +1,100 @@
-# Wells Fargo
+# wells-fargo (wells-fargo)
 
-Wells Fargo is a diversified, community-based financial services company providing banking, investment, mortgage, and consumer and commercial finance through thousands of stores and digital channels. Wells Fargo operates a comprehensive developer portal at developer.wellsfargo.com offering open banking APIs for payments, account data, and treasury management. The Gateway API platform handles over 1.5 billion API calls annually.
+Wells Fargo is a diversified, community-based financial services company providing banking, investment, mortgage, and consumer and commercial finance through thousands of stores and digital channels. Wells Fargo operates a comprehensive developer portal at developer.wellsfargo.com offering open banking APIs for payments, account data, and treasury management. The Gateway API platform handles over 1.5 billion API calls annually and supports commercial banking customers with ACH, wire, RTP, FedNow, and data reporting capabilities.
 
-**Website:** https://www.wellsfargo.com
-**Developer Portal:** https://developer.wellsfargo.com
-**Documentation:** https://developer.wellsfargo.com/documentation
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/wells-fargo/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/wells-fargo/refs/heads/main/apis.yml)
+
+## Timestamps
+
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### Wells Fargo Gateway API
 
-Comprehensive open banking platform launched in 2016 for commercial customers. Supports payments, real-time account information, and financial data integration. OAuth 2.0 authenticated.
+The Wells Fargo Gateway API is a comprehensive open banking platform launched in 2016, offering a growing catalog of plug-and-play APIs, SDKs, and webhooks for commercial customers and partners. The platform supports payments, real-time account information, and financial data integration across commercial banking, mortgage, credit card, and brokerage services. Built on RESTful principles with OAuth 2.0 authentication, the Gateway handles over 1.5 billion API calls annually.
 
-- **Base URL:** https://api.wellsfargo.com
-- **Documentation:** https://developer.wellsfargo.com/apis
-- **OpenAPI:** [wells-fargo-gateway-api-openapi.yml](openapi/wells-fargo-gateway-api-openapi.yml)
+- **Human URL:** [https://developer.wellsfargo.com/](https://developer.wellsfargo.com/)
+- **Base URL:** `https://api.wellsfargo.com`
 
-**Endpoints:** List Accounts, List Payments, Create a Payment, List Transactions
+#### Tags
+
+- Banking
+- Financial Services
+- Open Banking
+- Payments
+- Treasury Management
+- Commercial Banking
+
+#### Properties
+
+- [Documentation](https://developer.wellsfargo.com/apis)
+- [OpenAPI](openapi/wells-fargo-gateway-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/wells-fargo-gateway-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/wells-fargo-gateway-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Example](examples/wells-fargo-gateway-api-listAccounts-example.json)
+- [Example](examples/wells-fargo-gateway-api-createPayment-example.json)
+- [Spectral Ruleset](rules/wells-fargo-rules.yml)
 
 ### Wells Fargo Account Transactions API
 
-Treasury management API for searching and retrieving ACH, Wire, and RTP/Instant Payment transactions with up to 180 days of history and real-time intraday reporting.
+The Wells Fargo Account Transactions API enables treasury management customers to search and retrieve transaction data from the current day through 180 days prior. The API supports ACH, Wire, and RTP/Instant Payment transactions with unique transaction IDs, intraday and previous day reporting, and pagination for high-volume transaction retrieval.
 
-- **Base URL:** https://api.wellsfargo.com
-- **Documentation:** https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
-- **OpenAPI:** [wells-fargo-account-transactions-api-openapi.yml](openapi/wells-fargo-account-transactions-api-openapi.yml)
+- **Human URL:** [https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3](https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3)
+- **Base URL:** `https://api.wellsfargo.com`
 
-**Endpoints:** List Accounts, Get Account Balances, List Account Transactions, Get Transaction Detail
+#### Tags
+
+- Banking
+- Financial Services
+- Account Management
+- Transactions
+- Treasury Management
+
+#### Properties
+
+- [Documentation](https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3)
+- [OpenAPI](openapi/wells-fargo-account-transactions-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/wells-fargo-account-transactions-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/wells-fargo-account-transactions-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/wells-fargo-transaction-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Structure](json-structure/wells-fargo-transaction-structure.json)
+- [Example](examples/wells-fargo-account-transactions-api-listAccountTransactions-example.json)
+- [Spectral Ruleset](rules/wells-fargo-rules.yml)
 
 ### Wells Fargo ACH Payments API
 
-ACH payment initiation API for CCD, CTX, PPD, and WEB transactions with intelligent routing across RTP, FedNow, and ACH rails. Supports individual and batch payments.
+The Wells Fargo ACH Payments API enables commercial banking customers to initiate ACH credit and debit transactions, including same-day ACH, for payroll, vendor payments, and collections. The API integrates with Wells Fargo's intelligent payment routing that automatically selects the optimal rail including RTP, FedNow, and ACH for each transaction.
 
-- **Base URL:** https://api.wellsfargo.com
-- **Documentation:** https://developer.wellsfargo.com/documentation/api-references/ach-payments/v2/ach-payments-api-ref-v2
-- **OpenAPI:** [wells-fargo-ach-payments-api-openapi.yml](openapi/wells-fargo-ach-payments-api-openapi.yml)
+- **Human URL:** [https://developer.wellsfargo.com/documentation/api-references/ach-payments/v2/ach-payments-api-ref-v2](https://developer.wellsfargo.com/documentation/api-references/ach-payments/v2/ach-payments-api-ref-v2)
+- **Base URL:** `https://api.wellsfargo.com`
 
-**Endpoints:** Initiate ACH Payment, List ACH Payments, Get ACH Payment, Cancel ACH Payment, Submit ACH Batch, List ACH Returns
+#### Tags
 
-## Artifacts
+- Banking
+- Financial Services
+- Payments
+- ACH
+- Treasury Management
 
-### OpenAPI Specifications
-- [Gateway API](openapi/wells-fargo-gateway-api-openapi.yml)
-- [Account Transactions API](openapi/wells-fargo-account-transactions-api-openapi.yml)
-- [ACH Payments API](openapi/wells-fargo-ach-payments-api-openapi.yml)
+#### Properties
 
-### JSON Schema
-- [Transaction Schema](json-schema/wells-fargo-transaction-schema.json)
-- [ACH Payment Schema](json-schema/wells-fargo-ach-payment-schema.json)
+- [Documentation](https://developer.wellsfargo.com/documentation/api-references/ach-payments/v2/ach-payments-api-ref-v2)
+- [OpenAPI](openapi/wells-fargo-ach-payments-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/wells-fargo-ach-payments-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/wells-fargo-ach-payments-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/wells-fargo-ach-payment-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Structure](json-structure/wells-fargo-ach-payment-structure.json)
+- [Example](examples/wells-fargo-ach-payments-api-initiateAchPayment-example.json)
+- [Spectral Ruleset](rules/wells-fargo-rules.yml)
 
-### JSON Structure
-- [Transaction Structure](json-structure/wells-fargo-transaction-structure.json)
-- [ACH Payment Structure](json-structure/wells-fargo-ach-payment-structure.json)
+## Common Properties
 
-### Examples
-- [List Accounts](examples/wells-fargo-gateway-api-listAccounts-example.json)
-- [Create Payment](examples/wells-fargo-gateway-api-createPayment-example.json)
-- [Initiate ACH Payment](examples/wells-fargo-ach-payments-api-initiateAchPayment-example.json)
-- [List Account Transactions](examples/wells-fargo-account-transactions-api-listAccountTransactions-example.json)
-
-### Spectral Rules
-- [Wells Fargo Rules](rules/wells-fargo-rules.yml)
-
-### Capabilities (Naftiko)
-- [Commercial Banking Treasury](capabilities/commercial-banking-treasury.yaml) — Unified treasury workflow combining Gateway + Transactions + ACH APIs (13 tools)
-- **Shared:** [Gateway API](capabilities/shared/gateway-api.yaml)
-- **Shared:** [Account Transactions API](capabilities/shared/account-transactions-api.yaml)
-- **Shared:** [ACH Payments API](capabilities/shared/ach-payments-api.yaml)
-
-### JSON-LD
-- [Wells Fargo Context](json-ld/wells-fargo-context.jsonld)
-
-### Vocabulary
-- [Wells Fargo Vocabulary](vocabulary/wells-fargo-vocabulary.yml)
-
-## Tags
-
-Banking, Financial Services, Open Banking, Payments, ACH, Treasury Management, Commercial Banking, Fortune 500
-
-## Maintainers
-**FN:** API Evangelist
-**Email:** info@apievangelist.com
+- [LinkedIn](https://www.linkedin.com/company/wellsfargo)
+- [Website](https://www.wellsfargo.com)
+- [Developer Portal](https://developer.wellsfargo.com)
+- [Documentation](https://developer.wellsfargo.com/documentation)
+- [Git Hub Org](https://github.com/wells-fargo)
+- [J S O N L D Context](json-ld/wells-fargo-context.jsonld)
+- [Vocabulary](vocabulary/wells-fargo-vocabulary.yml)
+- [L L Ms Txt](https://developer.wellsfargo.com/llms.txt)
