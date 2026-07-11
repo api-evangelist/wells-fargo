@@ -1,0 +1,52 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/wells-fargo-account-transactions-api-openapi.yml, openapi/wells-fargo-ach-payments-api-openapi.yml,
+  openapi/wells-fargo-gateway-api-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/wells-fargo-account-transactions-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.wellsfargo.com/oauth2/token
+- name: oauth2
+  source: openapi/wells-fargo-ach-payments-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.wellsfargo.com/oauth2/token
+- name: oauth2
+  source: openapi/wells-fargo-gateway-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.wellsfargo.com/oauth2/authorize
+    tokenUrl: https://api.wellsfargo.com/oauth2/token
+scopes:
+- scope: accounts:read
+  description: Read account information and balances
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/wells-fargo-account-transactions-api-openapi.yml
+  - openapi/wells-fargo-gateway-api-openapi.yml
+- scope: payments:read
+  description: Read payment information and status
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/wells-fargo-ach-payments-api-openapi.yml
+- scope: payments:write
+  description: Initiate and cancel payments
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/wells-fargo-ach-payments-api-openapi.yml
+  - openapi/wells-fargo-gateway-api-openapi.yml
+- scope: transactions:read
+  description: Read transaction history and details
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/wells-fargo-account-transactions-api-openapi.yml
+  - openapi/wells-fargo-gateway-api-openapi.yml
