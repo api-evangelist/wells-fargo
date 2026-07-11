@@ -1,0 +1,35 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/wells-fargo-account-transactions-api-openapi.yml, openapi/wells-fargo-ach-payments-api-openapi.yml,
+  openapi/wells-fargo-gateway-api-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.wellsfargo.com/oauth2/token
+    scopes: 2
+  sources:
+  - openapi/wells-fargo-account-transactions-api-openapi.yml
+  - openapi/wells-fargo-ach-payments-api-openapi.yml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.wellsfargo.com/oauth2/authorize
+    tokenUrl: https://api.wellsfargo.com/oauth2/token
+    scopes: 3
+  sources:
+  - openapi/wells-fargo-gateway-api-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/wells-fargo-gateway-api-openapi.yml
