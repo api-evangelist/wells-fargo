@@ -11,6 +11,8 @@ description: Wells Fargo is a diversified, community-based financial services co
   API calls annually and supports commercial banking customers with ACH, wire, RTP,
   FedNow, and data reporting capabilities.
 common:
+- type: AgenticAccess
+  url: agentic-access/wells-fargo-agentic-access.yml
 - type: DomainSecurity
   url: security/wells-fargo-domain-security.yml
 - type: Authentication
