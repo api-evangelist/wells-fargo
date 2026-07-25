@@ -1,0 +1,57 @@
+openapi: 3.1.0
+info:
+  title: Wells Fargo Account Transactions Accounts Payments API
+  description: The Wells Fargo Account Transactions API enables treasury management customers to search and retrieve transaction data from the current day through 180 days prior. The API supports ACH, Wire, and RTP/Instant Payment transactions with unique transaction IDs, intraday and previous day reporting, and pagination for high-volume transaction retrieval. Authentication uses OAuth 2.0 bearer tokens obtained through the Wells Fargo Developer Portal.
+  version: '3.0'
+  contact:
+    url: https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
+servers:
+- url: https://api.wellsfargo.com
+tags:
+- name: Payments
+  description: Initiate and manage payments.
+paths:
+  /payments:
+    get:
+      operationId: listPayments
+      summary: List payments
+      description: Retrieves a list of payments initiated through the Gateway platform with status, amount, and recipient details.
+      tags:
+      - Payments
+      responses:
+        '200':
+          description: Success
+    post:
+      operationId: createPayment
+      summary: Create a payment
+      description: Initiates a new payment from the authenticated commercial customer's account to a specified recipient.
+      tags:
+      - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                currency:
+                  type: string
+                recipientAccount:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Payment initiated successfully
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.wellsfargo.com/oauth2/token
+          scopes:
+            accounts:read: Read account information and balances
+            transactions:read: Read transaction history and details

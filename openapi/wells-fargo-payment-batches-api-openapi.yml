@@ -1,0 +1,142 @@
+openapi: 3.1.0
+info:
+  title: Wells Fargo Account Transactions Accounts Payment Batches API
+  description: The Wells Fargo Account Transactions API enables treasury management customers to search and retrieve transaction data from the current day through 180 days prior. The API supports ACH, Wire, and RTP/Instant Payment transactions with unique transaction IDs, intraday and previous day reporting, and pagination for high-volume transaction retrieval. Authentication uses OAuth 2.0 bearer tokens obtained through the Wells Fargo Developer Portal.
+  version: '3.0'
+  contact:
+    url: https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
+servers:
+- url: https://api.wellsfargo.com
+tags:
+- name: Payment Batches
+  description: Batch ACH payment file management.
+paths:
+  /v2/ach/batches:
+    post:
+      operationId: submitAchBatch
+      summary: Submit ACH Batch
+      description: Submits a batch ACH payment file (NACHA-formatted or JSON) containing multiple ACH transactions for processing in a single submission. Supports CTX, CCD, PPD, and WEB ACH transaction codes.
+      tags:
+      - Payment Batches
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AchBatchRequest'
+      security:
+      - oauth2:
+        - payments:write
+      responses:
+        '201':
+          description: Batch submitted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AchBatch'
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+components:
+  schemas:
+    AchBatchRequest:
+      type: object
+      properties:
+        companyName:
+          type: string
+        companyId:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchPaymentRequest'
+    AchBatch:
+      type: object
+      properties:
+        batchId:
+          type: string
+        status:
+          type: string
+          enum:
+          - RECEIVED
+          - PROCESSING
+          - SUBMITTED
+          - COMPLETED
+          - REJECTED
+        transactionCount:
+          type: integer
+        totalDebitAmount:
+          type: number
+          format: double
+        totalCreditAmount:
+          type: number
+          format: double
+        createdAt:
+          type: string
+          format: date-time
+    AchPaymentRequest:
+      type: object
+      required:
+      - debitAccountId
+      - amount
+      - currency
+      - creditAccountNumber
+      - creditRoutingNumber
+      - transactionCode
+      properties:
+        debitAccountId:
+          type: string
+          description: Wells Fargo account ID to debit.
+        amount:
+          type: number
+          format: double
+          description: Payment amount.
+        currency:
+          type: string
+          example: USD
+        creditAccountNumber:
+          type: string
+          description: Receiver's account number.
+        creditRoutingNumber:
+          type: string
+          description: Receiver's bank routing/transit number (9 digits).
+        creditAccountType:
+          type: string
+          enum:
+          - CHECKING
+          - SAVINGS
+        transactionCode:
+          type: string
+          enum:
+          - CCD
+          - CTX
+          - PPD
+          - WEB
+          description: NACHA transaction code (CCD for corporate, PPD for consumer).
+        receiverName:
+          type: string
+          description: Name of payment receiver.
+        addendaInformation:
+          type: string
+          description: Optional payment addenda (up to 80 characters).
+        sameDayAch:
+          type: boolean
+          description: Request same-day ACH processing.
+          default: false
+        effectiveDate:
+          type: string
+          format: date
+          description: Requested settlement date.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.wellsfargo.com/oauth2/token
+          scopes:
+            accounts:read: Read account information and balances
+            transactions:read: Read transaction history and details

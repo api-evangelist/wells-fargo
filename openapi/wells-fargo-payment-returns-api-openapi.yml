@@ -1,0 +1,91 @@
+openapi: 3.1.0
+info:
+  title: Wells Fargo Account Transactions Accounts Payment Returns API
+  description: The Wells Fargo Account Transactions API enables treasury management customers to search and retrieve transaction data from the current day through 180 days prior. The API supports ACH, Wire, and RTP/Instant Payment transactions with unique transaction IDs, intraday and previous day reporting, and pagination for high-volume transaction retrieval. Authentication uses OAuth 2.0 bearer tokens obtained through the Wells Fargo Developer Portal.
+  version: '3.0'
+  contact:
+    url: https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
+servers:
+- url: https://api.wellsfargo.com
+tags:
+- name: Payment Returns
+  description: ACH return and NOC (Notification of Change) processing.
+paths:
+  /v2/ach/returns:
+    get:
+      operationId: listAchReturns
+      summary: List ACH Returns
+      description: Retrieves ACH returns and Notifications of Change (NOC) for the authenticated customer, including return reason codes, original transaction details, and resolution guidance.
+      tags:
+      - Payment Returns
+      parameters:
+      - name: startDate
+        in: query
+        description: Filter returns from this date.
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        description: Filter returns up to this date.
+        schema:
+          type: string
+          format: date
+      - name: returnType
+        in: query
+        description: Filter by return type (RETURN or NOC).
+        schema:
+          type: string
+          enum:
+          - RETURN
+          - NOC
+      security:
+      - oauth2:
+        - payments:read
+      responses:
+        '200':
+          description: ACH returns returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AchReturnListResponse'
+        '401':
+          description: Unauthorized.
+components:
+  schemas:
+    AchReturnListResponse:
+      type: object
+      properties:
+        returns:
+          type: array
+          items:
+            type: object
+            properties:
+              returnId:
+                type: string
+              originalPaymentId:
+                type: string
+              returnType:
+                type: string
+                enum:
+                - RETURN
+                - NOC
+              returnCode:
+                type: string
+              returnReason:
+                type: string
+              returnDate:
+                type: string
+                format: date
+              amount:
+                type: number
+                format: double
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.wellsfargo.com/oauth2/token
+          scopes:
+            accounts:read: Read account information and balances
+            transactions:read: Read transaction history and details
