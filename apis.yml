@@ -1,4 +1,18 @@
 aid: wells-fargo
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/wells-fargo.png
 tags:
 - Fortune 100
 url: https://raw.githubusercontent.com/api-evangelist/wells-fargo/refs/heads/main/apis.yml
@@ -36,67 +50,6 @@ common:
 - type: LlmsText
   url: https://developer.wellsfargo.com/llms.txt
 apis:
-- aid: wells-fargo:gateway-api
-  name: Wells Fargo Gateway API
-  tags:
-  - Banking
-  - Financial Services
-  - Open Banking
-  - Payments
-  - Treasury Management
-  - Commercial Banking
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.wellsfargo.com
-  humanURL: https://developer.wellsfargo.com/
-  properties:
-  - url: https://developer.wellsfargo.com/apis
-    type: Documentation
-  - url: openapi/wells-fargo-gateway-api-openapi.yml
-    type: OpenAPI
-  - url: examples/wells-fargo-gateway-api-listAccounts-example.json
-    type: Examples
-  - url: examples/wells-fargo-gateway-api-createPayment-example.json
-    type: Examples
-  - url: rules/wells-fargo-rules.yml
-    type: SpectralRuleset
-  - url: graphql/wells-fargo-graphql.md
-    type: GraphQL
-  description: The Wells Fargo Gateway API is a comprehensive open banking platform
-    launched in 2016, offering a growing catalog of plug-and-play APIs, SDKs, and
-    webhooks for commercial customers and partners. The platform supports payments,
-    real-time account information, and financial data integration across commercial
-    banking, mortgage, credit card, and brokerage services. Built on RESTful principles
-    with OAuth 2.0 authentication, the Gateway handles over 1.5 billion API calls
-    annually.
-- aid: wells-fargo:account-transactions-api
-  name: Wells Fargo Account Transactions API
-  tags:
-  - Banking
-  - Financial Services
-  - Account Management
-  - Transactions
-  - Treasury Management
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.wellsfargo.com
-  humanURL: https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
-  properties:
-  - url: https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
-    type: Documentation
-  - url: openapi/wells-fargo-account-transactions-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/wells-fargo-transaction-schema.json
-    type: JSONSchema
-  - url: json-structure/wells-fargo-transaction-structure.json
-    type: JSONStructure
-  - url: examples/wells-fargo-account-transactions-api-listAccountTransactions-example.json
-    type: Examples
-  - url: rules/wells-fargo-rules.yml
-    type: SpectralRuleset
-  description: The Wells Fargo Account Transactions API enables treasury management
-    customers to search and retrieve transaction data from the current day through
-    180 days prior. The API supports ACH, Wire, and RTP/Instant Payment transactions
-    with unique transaction IDs, intraday and previous day reporting, and pagination
-    for high-volume transaction retrieval.
 - aid: wells-fargo:ach-payments-api
   name: Wells Fargo ACH Payments API
   tags:
@@ -107,9 +60,11 @@ apis:
   - Treasury Management
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.wellsfargo.com
-  humanURL: https://developer.wellsfargo.com/documentation/api-references/ach-payments/v2/ach-payments-api-ref-v2
+  humanURL: >-
+    https://developer.wellsfargo.com/documentation/api-references/ach-payments/v2/ach-payments-api-ref-v2
   properties:
-  - url: https://developer.wellsfargo.com/documentation/api-references/ach-payments/v2/ach-payments-api-ref-v2
+  - url: >-
+      https://developer.wellsfargo.com/documentation/api-references/ach-payments/v2/ach-payments-api-ref-v2
     type: Documentation
   - url: openapi/wells-fargo-ach-payments-api-openapi.yml
     type: OpenAPI
@@ -121,8 +76,153 @@ apis:
     type: Examples
   - url: rules/wells-fargo-rules.yml
     type: SpectralRuleset
-  description: The Wells Fargo ACH Payments API enables commercial banking customers
-    to initiate ACH credit and debit transactions, including same-day ACH, for payroll,
-    vendor payments, and collections. The API integrates with Wells Fargo's intelligent
-    payment routing that automatically selects the optimal rail including RTP, FedNow,
-    and ACH for each transaction.
+  description: >-
+    The Wells Fargo ACH Payments API enables commercial banking customers to initiate ACH credit and debit
+    transactions, including same-day ACH, for payroll, vendor payments, and collections. The API integrates
+    with Wells Fargo's intelligent payment routing that automatically selects the optimal rail including
+    RTP, FedNow, and ACH for each transaction.
+- aid: wells-fargo:wells-fargo-accounts-api
+  name: wells-fargo Accounts API
+  description: Account information and balance queries.
+  humanURL: https://developer.wellsfargo.com/
+  baseURL: https://api.wellsfargo.com
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/wells-fargo-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.wellsfargo.com/apis
+  - type: Examples
+    url: examples/wells-fargo-gateway-api-listAccounts-example.json
+  - type: Examples
+    url: examples/wells-fargo-gateway-api-createPayment-example.json
+  - type: SpectralRuleset
+    url: rules/wells-fargo-rules.yml
+  - type: GraphQL
+    url: graphql/wells-fargo-graphql.md
+  - type: Documentation
+    url: >-
+      https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
+  - type: JSONSchema
+    url: json-schema/wells-fargo-transaction-schema.json
+  - type: JSONStructure
+    url: json-structure/wells-fargo-transaction-structure.json
+  - type: Examples
+    url: examples/wells-fargo-account-transactions-api-listAccountTransactions-example.json
+- aid: wells-fargo:wells-fargo-payment-batches-api
+  name: wells-fargo Payment Batches API
+  description: Batch ACH payment file management.
+  humanURL: https://developer.wellsfargo.com/
+  baseURL: https://api.wellsfargo.com
+  tags:
+  - Payment Batches
+  properties:
+  - type: OpenAPI
+    url: openapi/wells-fargo-payment-batches-api-openapi.yml
+  - type: Documentation
+    url: https://developer.wellsfargo.com/apis
+  - type: Examples
+    url: examples/wells-fargo-gateway-api-listAccounts-example.json
+  - type: Examples
+    url: examples/wells-fargo-gateway-api-createPayment-example.json
+  - type: SpectralRuleset
+    url: rules/wells-fargo-rules.yml
+  - type: GraphQL
+    url: graphql/wells-fargo-graphql.md
+  - type: Documentation
+    url: >-
+      https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
+  - type: JSONSchema
+    url: json-schema/wells-fargo-transaction-schema.json
+  - type: JSONStructure
+    url: json-structure/wells-fargo-transaction-structure.json
+  - type: Examples
+    url: examples/wells-fargo-account-transactions-api-listAccountTransactions-example.json
+- aid: wells-fargo:wells-fargo-payment-returns-api
+  name: wells-fargo Payment Returns API
+  description: ACH return and NOC (Notification of Change) processing.
+  humanURL: https://developer.wellsfargo.com/
+  baseURL: https://api.wellsfargo.com
+  tags:
+  - Payment Returns
+  properties:
+  - type: OpenAPI
+    url: openapi/wells-fargo-payment-returns-api-openapi.yml
+  - type: Documentation
+    url: https://developer.wellsfargo.com/apis
+  - type: Examples
+    url: examples/wells-fargo-gateway-api-listAccounts-example.json
+  - type: Examples
+    url: examples/wells-fargo-gateway-api-createPayment-example.json
+  - type: SpectralRuleset
+    url: rules/wells-fargo-rules.yml
+  - type: GraphQL
+    url: graphql/wells-fargo-graphql.md
+  - type: Documentation
+    url: >-
+      https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
+  - type: JSONSchema
+    url: json-schema/wells-fargo-transaction-schema.json
+  - type: JSONStructure
+    url: json-structure/wells-fargo-transaction-structure.json
+  - type: Examples
+    url: examples/wells-fargo-account-transactions-api-listAccountTransactions-example.json
+- aid: wells-fargo:wells-fargo-payments-api
+  name: wells-fargo Payments API
+  description: Initiate and manage payments.
+  humanURL: https://developer.wellsfargo.com/
+  baseURL: https://api.wellsfargo.com
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/wells-fargo-payments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.wellsfargo.com/apis
+  - type: Examples
+    url: examples/wells-fargo-gateway-api-listAccounts-example.json
+  - type: Examples
+    url: examples/wells-fargo-gateway-api-createPayment-example.json
+  - type: SpectralRuleset
+    url: rules/wells-fargo-rules.yml
+  - type: GraphQL
+    url: graphql/wells-fargo-graphql.md
+  - type: Documentation
+    url: >-
+      https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
+  - type: JSONSchema
+    url: json-schema/wells-fargo-transaction-schema.json
+  - type: JSONStructure
+    url: json-structure/wells-fargo-transaction-structure.json
+  - type: Examples
+    url: examples/wells-fargo-account-transactions-api-listAccountTransactions-example.json
+- aid: wells-fargo:wells-fargo-transactions-api
+  name: wells-fargo Transactions API
+  description: Retrieve and search account transaction data.
+  humanURL: https://developer.wellsfargo.com/
+  baseURL: https://api.wellsfargo.com
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/wells-fargo-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.wellsfargo.com/apis
+  - type: Examples
+    url: examples/wells-fargo-gateway-api-listAccounts-example.json
+  - type: Examples
+    url: examples/wells-fargo-gateway-api-createPayment-example.json
+  - type: SpectralRuleset
+    url: rules/wells-fargo-rules.yml
+  - type: GraphQL
+    url: graphql/wells-fargo-graphql.md
+  - type: Documentation
+    url: >-
+      https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
+  - type: JSONSchema
+    url: json-schema/wells-fargo-transaction-schema.json
+  - type: JSONStructure
+    url: json-structure/wells-fargo-transaction-structure.json
+  - type: Examples
+    url: examples/wells-fargo-account-transactions-api-listAccountTransactions-example.json
