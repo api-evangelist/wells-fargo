@@ -1,0 +1,24 @@
+{
+  "provider": "wells-fargo",
+  "sources": [
+    "wells-fargo-accounts-api-openapi.yml",
+    "wells-fargo-ach-payments-api-openapi.yml",
+    "wells-fargo-payment-batches-api-openapi.yml",
+    "wells-fargo-payment-returns-api-openapi.yml",
+    "wells-fargo-payments-api-openapi.yml",
+    "wells-fargo-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "wells-fargo-accounts-api-openapi.yml",
+    "wells-fargo-ach-payments-api-openapi.yml",
+    "wells-fargo-payment-batches-api-openapi.yml",
+    "wells-fargo-payment-returns-api-openapi.yml",
+    "wells-fargo-payments-api-openapi.yml",
+    "wells-fargo-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
