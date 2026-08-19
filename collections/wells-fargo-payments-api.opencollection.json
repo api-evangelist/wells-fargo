@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wells Fargo Account Transactions Accounts Payments API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wellsfargo.com/payments"
+          },
+          "docs": "Retrieves a list of payments initiated through the Gateway platform with status, amount, and recipient details."
+        },
+        {
+          "info": {
+            "name": "Create a payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wellsfargo.com/payments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a new payment from the authenticated commercial customer's account to a specified recipient."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

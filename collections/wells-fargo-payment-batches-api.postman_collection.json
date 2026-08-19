@@ -1,0 +1,249 @@
+{
+  "item": [
+    {
+      "id": "16c52c2a-c6de-4554-9b83-7822de4ca7c7",
+      "name": "Payment Batches",
+      "description": {
+        "content": "Batch ACH payment file management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6587206b-d212-44d1-b628-f99a7ba9c2d0",
+          "name": "Submit ACH Batch",
+          "request": {
+            "name": "Submit ACH Batch",
+            "description": {
+              "content": "Submits a batch ACH payment file (NACHA-formatted or JSON) containing multiple ACH transactions for processing in a single submission. Supports CTX, CCD, PPD, and WEB ACH transaction codes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "ach",
+                "batches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "accounts:read transactions:read"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.wellsfargo.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"transactions\": [\n    {\n      \"debitAccountId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"creditAccountNumber\": \"<string>\",\n      \"creditRoutingNumber\": \"<string>\",\n      \"transactionCode\": \"<string>\",\n      \"creditAccountType\": \"<string>\",\n      \"receiverName\": \"<string>\",\n      \"addendaInformation\": \"<string>\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"<date>\"\n    },\n    {\n      \"debitAccountId\": \"<string>\",\n      \"amount\": \"<double>\",\n      \"currency\": \"<string>\",\n      \"creditAccountNumber\": \"<string>\",\n      \"creditRoutingNumber\": \"<string>\",\n      \"transactionCode\": \"<string>\",\n      \"creditAccountType\": \"<string>\",\n      \"receiverName\": \"<string>\",\n      \"addendaInformation\": \"<string>\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"<date>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0e30bfa1-579d-49f1-b476-7fc49978eda4",
+              "name": "Batch submitted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "batches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"transactions\": [\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 4234.992680275692,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"CCD\",\n      \"creditAccountType\": \"CHECKING\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"2022-03-27\"\n    },\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 5334.424095105519,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"WEB\",\n      \"creditAccountType\": \"CHECKING\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"1978-09-30\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"string\",\n  \"status\": \"SUBMITTED\",\n  \"transactionCount\": 9862,\n  \"totalDebitAmount\": 6202.781368726936,\n  \"totalCreditAmount\": 3840.482541720004,\n  \"createdAt\": \"1989-08-28T04:45:21.904Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e68f140-e18e-4984-8c42-165d95cd6a57",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "batches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"transactions\": [\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 4234.992680275692,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"CCD\",\n      \"creditAccountType\": \"CHECKING\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"2022-03-27\"\n    },\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 5334.424095105519,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"WEB\",\n      \"creditAccountType\": \"CHECKING\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"1978-09-30\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef729d95-d26b-42ba-b047-1a2d6b0c4ccf",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "batches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyName\": \"<string>\",\n  \"companyId\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"transactions\": [\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 4234.992680275692,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"CCD\",\n      \"creditAccountType\": \"CHECKING\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"2022-03-27\"\n    },\n    {\n      \"debitAccountId\": \"string\",\n      \"amount\": 5334.424095105519,\n      \"currency\": \"USD\",\n      \"creditAccountNumber\": \"string\",\n      \"creditRoutingNumber\": \"string\",\n      \"transactionCode\": \"WEB\",\n      \"creditAccountType\": \"CHECKING\",\n      \"receiverName\": \"string\",\n      \"addendaInformation\": \"string\",\n      \"sameDayAch\": false,\n      \"effectiveDate\": \"1978-09-30\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wellsfargo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6672c885-84e7-4073-b4eb-3f899fcdb0f5",
+    "name": "Wells Fargo Account Transactions Accounts Payment Batches API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Wells Fargo Account Transactions API enables treasury management customers to search and retrieve transaction data from the current day through 180 days prior. The API supports ACH, Wire, and RTP/Instant Payment transactions with unique transaction IDs, intraday and previous day reporting, and pagination for high-volume transaction retrieval. Authentication uses OAuth 2.0 bearer tokens obtained through the Wells Fargo Developer Portal.",
+      "type": "text/plain"
+    }
+  }
+}

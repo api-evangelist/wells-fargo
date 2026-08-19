@@ -1,0 +1,216 @@
+{
+  "item": [
+    {
+      "id": "834318cb-25d2-40ad-83b0-af76a1c4a05c",
+      "name": "Payment Returns",
+      "description": {
+        "content": "ACH return and NOC (Notification of Change) processing.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f2ecba7d-fe06-427e-8727-43c50a85f257",
+          "name": "List ACH Returns",
+          "request": {
+            "name": "List ACH Returns",
+            "description": {
+              "content": "Retrieves ACH returns and Notifications of Change (NOC) for the authenticated customer, including return reason codes, original transaction details, and resolution guidance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "ach",
+                "returns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Filter returns from this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "Filter returns up to this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "returnType",
+                  "value": "<string>",
+                  "description": "Filter by return type (RETURN or NOC)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "accounts:read transactions:read"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.wellsfargo.com/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb2f97ed-0dcb-4e56-ae87-3a91da5ed92d",
+              "name": "ACH returns returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "returnType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"returns\": [\n    {\n      \"returnId\": \"string\",\n      \"originalPaymentId\": \"string\",\n      \"returnType\": \"NOC\",\n      \"returnCode\": \"string\",\n      \"returnReason\": \"string\",\n      \"returnDate\": \"1956-02-07\",\n      \"amount\": 9032.16215806251\n    },\n    {\n      \"returnId\": \"string\",\n      \"originalPaymentId\": \"string\",\n      \"returnType\": \"NOC\",\n      \"returnCode\": \"string\",\n      \"returnReason\": \"string\",\n      \"returnDate\": \"1951-05-27\",\n      \"amount\": 2980.7346647065615\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "410a926b-8d4c-470f-af85-d9e7ca1c41a7",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "ach",
+                    "returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "returnType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wellsfargo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fd87e7bb-2555-42cf-8e88-10454ae4f0dd",
+    "name": "Wells Fargo Account Transactions Accounts Payment Returns API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Wells Fargo Account Transactions API enables treasury management customers to search and retrieve transaction data from the current day through 180 days prior. The API supports ACH, Wire, and RTP/Instant Payment transactions with unique transaction IDs, intraday and previous day reporting, and pagination for high-volume transaction retrieval. Authentication uses OAuth 2.0 bearer tokens obtained through the Wells Fargo Developer Portal.",
+      "type": "text/plain"
+    }
+  }
+}

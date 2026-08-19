@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Wells Fargo Account Transactions Accounts Payment Returns API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payment Returns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List ACH Returns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wellsfargo.com/v2/ach/returns",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter returns from this date."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter returns up to this date."
+              },
+              {
+                "name": "returnType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by return type (RETURN or NOC)."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://api.wellsfargo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieves ACH returns and Notifications of Change (NOC) for the authenticated customer, including return reason codes, original transaction details, and resolution guidance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
