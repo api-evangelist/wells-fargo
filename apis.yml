@@ -1,4 +1,5 @@
 aid: wells-fargo
+name: "Wells Fargo"
 specificationVersion: '0.23'
 deliveryModel:
   model: saas
