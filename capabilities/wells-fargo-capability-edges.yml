@@ -1,0 +1,59 @@
+slug: wells-fargo
+provider: Wells Fargo
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: ACH Payments
+  spec_file: wells-fargo-ach-payments-api-openapi.yml
+  capability_id: BC-1340.30
+  capability_id_l1: BC-1340
+  capability_name: Clearing & Settlement Management
+  confidence: 0.85
+  evidence: POST /v2/ach/payments 'Initiate ACH Payment'; 'Cancel ACH Payment'; schema AchPaymentRequest
+  reason: Initiation and lifecycle management of ACH payments — domestic clearing rail (ACH) payment processing.
+- tag: Payment Batches
+  spec_file: wells-fargo-payment-batches-api-openapi.yml
+  capability_id: BC-1340.30
+  capability_id_l1: BC-1340
+  capability_name: Clearing & Settlement Management
+  confidence: 0.75
+  evidence: POST /v2/ach/batches 'Submit ACH Batch'; schemas AchBatch, AchBatchRequest
+  reason: Submission of ACH payment batches is ACH clearing/payment processing, not generic batch plumbing
+    (the payload is payment instructions).
+- tag: Accounts
+  spec_file: wells-fargo-accounts-api-openapi.yml
+  capability_id: BC-1330.10
+  capability_id_l1: BC-1330
+  capability_name: Deposit Account Management
+  confidence: 0.7
+  evidence: GET /v3/accounts 'List Accounts'; GET /v3/accounts/{accountId}/balances 'Get Account Balances';
+    schema AccountBalance
+  reason: Retrieval of bank account lists and balances for treasury management customers — deposit/current
+    account information servicing.
+- tag: Payment Returns
+  spec_file: wells-fargo-payment-returns-api-openapi.yml
+  capability_id: BC-1340.30
+  capability_id_l1: BC-1340
+  capability_name: Clearing & Settlement Management
+  confidence: 0.7
+  evidence: GET /v2/ach/returns 'List ACH Returns'; schema AchReturnListResponse
+  reason: ACH return items are exceptions in the ACH clearing/settlement cycle.
+- tag: Payments
+  spec_file: wells-fargo-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: POST /payments 'Create a payment'; GET /payments 'List payments'
+  reason: Generic payment creation/listing on a bank's payments API — payment initiation; thin context
+    so no narrower rail can be named.

@@ -39,6 +39,9 @@ description: Wells Fargo is a diversified, community-based financial services co
   API calls annually and supports commercial banking customers with ACH, wire, RTP,
   FedNow, and data reporting capabilities.
 common:
+- type: CapabilityMap
+  url: capabilities/wells-fargo-capability-edges.yml
+  name: Wells Fargo Business Capability Map
 - type: Support
   url: https://www.wellsfargo.com/help/
 - type: TermsOfService
