@@ -1,51 +1,75 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: wells-fargo
-providerId: wells-fargo
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
-tags:
-  - Banking
-  - Open Banking
-  - Payments
-  - Treasury
-  - Contact Sales
-description: Wells Fargo operates a developer portal (developer.wellsfargo.com) advertising Open
-  Banking APIs across Payments and Data, but published consumption is partner-only. There is no
-  public, self-serve developer plan with per-call pricing or tiered quotas; access requires a banking
-  / treasury / fintech relationship and an executed API agreement with Wells Fargo.
-notes: developer.wellsfargo.com confirms an Open Banking API portal (Payments and Data) but does not
-  expose per-tier pricing. Scaffold reduced to one Contact Sales plan reflecting partner-led access.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.wellsfargo.com/biz/merchant/payment-processing-pricing/
 sources:
-  - https://developer.wellsfargo.com/
+- https://www.wellsfargo.com/biz/merchant/payment-processing-pricing/
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T125857
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: ad-valorem
+published: true
+note: Merchant services fee page combining percentage-based transaction processing tiers plus monthly
+  account and PCI fees; custom pricing available by phone.
+plan_count: 9
+currency: USD
 plans:
-  - id: wells-fargo-contact-sales
-    name: Contact Sales
-    type: enterprise
-    description: Partner / treasury access to Wells Fargo Open Banking APIs (Payments and Data),
-      negotiated through the bank's treasury management or developer-relations team. Pricing is
-      bilateral and bundled into the treasury / commercial-banking relationship.
-    entries:
-      - label: Partner Agreement
-        name: partner_agreement
-        type: flat
-        metric: varies
-        limit: -1
-        timeFrame: usage
-        geo: US
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-    elements:
-      - name: Open Banking - Payments APIs
-      - name: Open Banking - Data APIs
-      - name: Treasury / Commercial Banking Relationship
-      - name: Developer Portal Access (post-onboarding)
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: Transaction processing $0 - $39,999.99 (tap, dip, or swipe)
+  price_text: 'Per tap, dip, or swipe: 2.60% + $0.15'
+  currency: USD
+  period: per-use
+  unit: transaction
+  included_quota: $0 - $39,999.99 monthly volume
+- name: Transaction processing $0 - $39,999.99 (online or keyed in)
+  price_text: 'Per online or keyed in : 3.50% + $0.15'
+  currency: USD
+  period: per-use
+  unit: transaction
+  included_quota: $0 - $39,999.99 monthly volume
+- name: Transaction processing $40,000 - $79,999.99 (tap, dip, or swipe)
+  price_text: 'Per tap, dip, or swipe: 2.50% + $0.15'
+  currency: USD
+  period: per-use
+  unit: transaction
+  included_quota: $40,000 - $79,999.99 monthly volume
+- name: Transaction processing $40,000 - $79,999.99 (online or keyed in)
+  price_text: 'Per online or keyed in: 3.40% + $0.15'
+  currency: USD
+  period: per-use
+  unit: transaction
+  included_quota: $40,000 - $79,999.99 monthly volume
+- name: Transaction processing $80,000 and up (tap, dip, or swipe)
+  price_text: 'Per tap, dip, or swipe: 2.40% + $0.15'
+  currency: USD
+  period: per-use
+  unit: transaction
+  included_quota: $80,000 and up monthly volume
+- name: Transaction processing $80,000 and up (online or keyed in)
+  price_text: 'Per online or keyed in: 3.30% + $0.15'
+  currency: USD
+  period: per-use
+  unit: transaction
+  included_quota: $80,000 and up monthly volume
+- name: Merchant account fee
+  price_text: $9.95 per month, per merchant ID (MID)
+  price: 9.95
+  currency: USD
+  period: month
+  unit: merchant ID
+  included_quota: Reporting and analytics, fraud protection, dispute tools, 24/7 U.S.-based support
+- name: PCI Compliance Program fee
+  price_text: $10.00 per month, per merchant ID
+  price: 10
+  currency: USD
+  period: month
+  unit: merchant ID
+  included_quota: Compliance adherence, web security tools, $100,000 breach insurance, web portal
+- name: Clover software plans
+  price_text: from $0
+  price: 0
+  currency: USD
+  period: month
+  unit: software plan
+  included_quota: Entry-level payment processing up to advanced industry plans
