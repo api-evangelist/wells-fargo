@@ -2,16 +2,16 @@
 kin_checks:
   slug: wells-fargo
   schema_version: 0.22.0
-  scored_at: '2026-09-19'
-  run_ts: 2026-09-19T193153
+  scored_at: '2026-09-21'
+  run_ts: 2026-09-21T233935
   note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
     apply in `na`. Everything else in rubric/scoring-0.22.0.yml was earned; counts
     below let you verify that.
   counts:
     total: 136
-    earned: 39
-    partial: 17
-    missed: 57
+    earned: 42
+    partial: 16
+    missed: 55
     na: 23
   checks:
   - id: tags_present
@@ -86,10 +86,6 @@ kin_checks:
     status: missed
   - id: blog_present
     status: missed
-  - id: plans_multiple
-    status: missed
-  - id: pricing_link
-    status: missed
   - id: privacy_policy
     status: missed
   - id: compliance_published
@@ -163,9 +159,6 @@ kin_checks:
     status: partial
     earned: 0.75
   - id: rate_limits_documented
-    status: partial
-    earned: 2.0
-  - id: plans_present
     status: partial
     earned: 2.0
   - id: sign_up_present
