@@ -1,24 +1,38 @@
 {
   "provider": "wells-fargo",
   "sources": [
-    "wells-fargo-accounts-api-openapi.yml",
+    "_original/wells-fargo-account-transactions-api-openapi.yml",
+    "_original/wells-fargo-gateway-api-openapi.yml",
     "wells-fargo-ach-payments-api-openapi.yml",
     "wells-fargo-payment-batches-api-openapi.yml",
-    "wells-fargo-payment-returns-api-openapi.yml",
-    "wells-fargo-payments-api-openapi.yml",
-    "wells-fargo-transactions-api-openapi.yml"
+    "wells-fargo-payment-returns-api-openapi.yml"
   ],
   "outputs": [
     "wells-fargo-accounts-api-openapi.yml",
+    "wells-fargo-transactions-api-openapi.yml",
+    "wells-fargo-payments-api-openapi.yml",
     "wells-fargo-ach-payments-api-openapi.yml",
     "wells-fargo-payment-batches-api-openapi.yml",
-    "wells-fargo-payment-returns-api-openapi.yml",
-    "wells-fargo-payments-api-openapi.yml",
-    "wells-fargo-transactions-api-openapi.yml"
+    "wells-fargo-payment-returns-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "wells-fargo-ach-payments-api-openapi.yml: previously refined output kept for 4 operation(s) no archived document covers (e.g. /v2/ach/payments get, /v2/ach/payments post, /v2/ach/payments/{paymentId} delete); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "wells-fargo-payment-batches-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v2/ach/batches post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "wells-fargo-payment-returns-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v2/ach/returns get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "wells-fargo-account-transactions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "wells-fargo-gateway-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Accounts' spans 2 source specs (wells-fargo-account-transactions-api-openapi.yml, wells-fargo-gateway-api-openapi.yml): per-path servers applied",
+    "tag 'Transactions' spans 2 source specs (wells-fargo-account-transactions-api-openapi.yml, wells-fargo-gateway-api-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "wells-fargo-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wells-fargo-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wells-fargo-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

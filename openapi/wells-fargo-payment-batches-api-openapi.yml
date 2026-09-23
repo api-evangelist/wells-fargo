@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Wells Fargo Account Transactions Accounts Payment Batches API
+  title: Wells Fargo Account Transactions Accounts … Payment Batches…
   description: The Wells Fargo Account Transactions API enables treasury management customers to search and retrieve transaction data from the current day through 180 days prior. The API supports ACH, Wire, and RTP/Instant Payment transactions with unique transaction IDs, intraday and previous day reporting, and pagination for high-volume transaction retrieval. Authentication uses OAuth 2.0 bearer tokens obtained through the Wells Fargo Developer Portal.
   version: '3.0'
   contact:
@@ -40,44 +40,6 @@ paths:
           description: Unauthorized.
 components:
   schemas:
-    AchBatchRequest:
-      type: object
-      properties:
-        companyName:
-          type: string
-        companyId:
-          type: string
-        effectiveDate:
-          type: string
-          format: date
-        transactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/AchPaymentRequest'
-    AchBatch:
-      type: object
-      properties:
-        batchId:
-          type: string
-        status:
-          type: string
-          enum:
-          - RECEIVED
-          - PROCESSING
-          - SUBMITTED
-          - COMPLETED
-          - REJECTED
-        transactionCount:
-          type: integer
-        totalDebitAmount:
-          type: number
-          format: double
-        totalCreditAmount:
-          type: number
-          format: double
-        createdAt:
-          type: string
-          format: date-time
     AchPaymentRequest:
       type: object
       required:
@@ -131,6 +93,44 @@ components:
           type: string
           format: date
           description: Requested settlement date.
+    AchBatch:
+      type: object
+      properties:
+        batchId:
+          type: string
+        status:
+          type: string
+          enum:
+          - RECEIVED
+          - PROCESSING
+          - SUBMITTED
+          - COMPLETED
+          - REJECTED
+        transactionCount:
+          type: integer
+        totalDebitAmount:
+          type: number
+          format: double
+        totalCreditAmount:
+          type: number
+          format: double
+        createdAt:
+          type: string
+          format: date-time
+    AchBatchRequest:
+      type: object
+      properties:
+        companyName:
+          type: string
+        companyId:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchPaymentRequest'
   securitySchemes:
     oauth2:
       type: oauth2

@@ -1,7 +1,9 @@
 ---
 title: Wells Fargo Names Faraz Shafiq as Head of AI Products ...
 url: https://newsroom.wf.com/news-releases/news-details/2026/Wells-Fargo-Names-Faraz-Shafiq-as-Head-of-AI-Products-and-Solutions/default.aspx
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Wells Fargo" press release artificial intelligence'
 position: 1
 source: serpapi-google

@@ -1,7 +1,9 @@
 ---
 title: Wells Fargo Reaches Major Digital Milestones
 url: https://newsroom.wf.com/news-releases/news-details/2026/Wells-Fargo-Reaches-Major-Digital-Milestones/default.aspx
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Wells Fargo" press release artificial intelligence'
 position: 4
 source: serpapi-google

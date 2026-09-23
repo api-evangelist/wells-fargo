@@ -1,7 +1,9 @@
 ---
 title: Wells Fargo Scales AI to Meet Surging Customer Demand
 url: https://www.pymnts.com/news/digital-banking/2026/wells-fargo-scales-ai-to-meet-surging-customer-demand/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Wells Fargo" press release artificial intelligence'
 position: 2
 source: serpapi-google

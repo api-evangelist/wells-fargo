@@ -1,7 +1,9 @@
 ---
 title: Banks chase AI-fueled efficiencies
 url: https://www.ciodive.com/news/banks-citigroup-wells-fargo-jpmorgan-chase-goldman-sachs-AI-earnings/802912/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Wells Fargo" press release artificial intelligence'
 position: 5
 source: serpapi-google
