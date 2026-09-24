@@ -81,7 +81,7 @@ apis:
   name: Wells Fargo ACH Payments API
   tags:
   - Banking
-  - Financial-Services
+  - Financial Services
   - Payments
   - ACH
   - Treasury Management
@@ -91,6 +91,7 @@ apis:
   - Payments
   - ACH
   - Treasury Management
+  - Financial-Services
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.wellsfargo.com
   humanURL: >-
@@ -134,8 +135,6 @@ apis:
     url: examples/wells-fargo-gateway-api-createPayment-example.json
   - type: SpectralRuleset
     url: rules/wells-fargo-rules.yml
-  - type: GraphQL
-    url: graphql/wells-fargo-graphql.md
   - type: Documentation
     url: >-
       https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
@@ -163,8 +162,6 @@ apis:
     url: examples/wells-fargo-gateway-api-createPayment-example.json
   - type: SpectralRuleset
     url: rules/wells-fargo-rules.yml
-  - type: GraphQL
-    url: graphql/wells-fargo-graphql.md
   - type: Documentation
     url: >-
       https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
@@ -192,8 +189,6 @@ apis:
     url: examples/wells-fargo-gateway-api-createPayment-example.json
   - type: SpectralRuleset
     url: rules/wells-fargo-rules.yml
-  - type: GraphQL
-    url: graphql/wells-fargo-graphql.md
   - type: Documentation
     url: >-
       https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
@@ -221,8 +216,6 @@ apis:
     url: examples/wells-fargo-gateway-api-createPayment-example.json
   - type: SpectralRuleset
     url: rules/wells-fargo-rules.yml
-  - type: GraphQL
-    url: graphql/wells-fargo-graphql.md
   - type: Documentation
     url: >-
       https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
@@ -252,8 +245,6 @@ apis:
     url: examples/wells-fargo-gateway-api-createPayment-example.json
   - type: SpectralRuleset
     url: rules/wells-fargo-rules.yml
-  - type: GraphQL
-    url: graphql/wells-fargo-graphql.md
   - type: Documentation
     url: >-
       https://developer.wellsfargo.com/documentation/api-references/account-transactions/v3/transaction-detail-api-ref-v3
