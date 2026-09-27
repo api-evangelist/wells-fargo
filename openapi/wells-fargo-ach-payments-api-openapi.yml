@@ -157,6 +157,47 @@ components:
           type: string
         totalCount:
           type: integer
+    AchPayment:
+      type: object
+      properties:
+        paymentId:
+          type: string
+        status:
+          type: string
+          enum:
+          - PENDING
+          - SUBMITTED
+          - SETTLED
+          - RETURNED
+          - REJECTED
+          - CANCELLED
+        debitAccountId:
+          type: string
+        amount:
+          type: number
+          format: double
+        currency:
+          type: string
+        creditAccountNumber:
+          type: string
+        creditRoutingNumber:
+          type: string
+        transactionCode:
+          type: string
+        receiverName:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        settlementDate:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          format: date-time
+        traceNumber:
+          type: string
+          description: NACHA trace number assigned at submission.
     AchPaymentRequest:
       type: object
       required:
@@ -210,47 +251,6 @@ components:
           type: string
           format: date
           description: Requested settlement date.
-    AchPayment:
-      type: object
-      properties:
-        paymentId:
-          type: string
-        status:
-          type: string
-          enum:
-          - PENDING
-          - SUBMITTED
-          - SETTLED
-          - RETURNED
-          - REJECTED
-          - CANCELLED
-        debitAccountId:
-          type: string
-        amount:
-          type: number
-          format: double
-        currency:
-          type: string
-        creditAccountNumber:
-          type: string
-        creditRoutingNumber:
-          type: string
-        transactionCode:
-          type: string
-        receiverName:
-          type: string
-        effectiveDate:
-          type: string
-          format: date
-        settlementDate:
-          type: string
-          format: date
-        createdAt:
-          type: string
-          format: date-time
-        traceNumber:
-          type: string
-          description: NACHA trace number assigned at submission.
   securitySchemes:
     oauth2:
       type: oauth2

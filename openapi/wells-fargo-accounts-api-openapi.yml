@@ -62,7 +62,7 @@ paths:
     - url: https://api.wellsfargo.com
   /accounts:
     get:
-      operationId: listAccounts
+      operationId: getAccounts
       summary: List accounts
       description: Retrieves a list of accounts associated with the authenticated commercial customer, including account type, balance, and status.
       tags:
@@ -70,29 +70,12 @@ paths:
       responses:
         '200':
           description: Success
+      x-operation-id-source: normalized
+      x-operation-id-original: listAccounts
     servers:
     - url: https://api.wellsfargo.com
 components:
   schemas:
-    AccountBalance:
-      type: object
-      properties:
-        accountId:
-          type: string
-        ledgerBalance:
-          type: number
-          format: double
-        availableBalance:
-          type: number
-          format: double
-        intradayPosition:
-          type: number
-          format: double
-        currency:
-          type: string
-        asOfDateTime:
-          type: string
-          format: date-time
     AccountListResponse:
       type: object
       properties:
@@ -124,6 +107,25 @@ components:
           - ACTIVE
           - INACTIVE
           - CLOSED
+    AccountBalance:
+      type: object
+      properties:
+        accountId:
+          type: string
+        ledgerBalance:
+          type: number
+          format: double
+        availableBalance:
+          type: number
+          format: double
+        intradayPosition:
+          type: number
+          format: double
+        currency:
+          type: string
+        asOfDateTime:
+          type: string
+          format: date-time
   securitySchemes:
     oauth2:
       type: oauth2
