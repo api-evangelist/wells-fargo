@@ -76,13 +76,25 @@ paths:
     - url: https://api.wellsfargo.com
 components:
   schemas:
-    AccountListResponse:
+    AccountBalance:
       type: object
       properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
+        accountId:
+          type: string
+        ledgerBalance:
+          type: number
+          format: double
+        availableBalance:
+          type: number
+          format: double
+        intradayPosition:
+          type: number
+          format: double
+        currency:
+          type: string
+        asOfDateTime:
+          type: string
+          format: date-time
     Account:
       type: object
       properties:
@@ -107,25 +119,13 @@ components:
           - ACTIVE
           - INACTIVE
           - CLOSED
-    AccountBalance:
+    AccountListResponse:
       type: object
       properties:
-        accountId:
-          type: string
-        ledgerBalance:
-          type: number
-          format: double
-        availableBalance:
-          type: number
-          format: double
-        intradayPosition:
-          type: number
-          format: double
-        currency:
-          type: string
-        asOfDateTime:
-          type: string
-          format: date-time
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
   securitySchemes:
     oauth2:
       type: oauth2

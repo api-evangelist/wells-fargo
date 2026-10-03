@@ -146,17 +146,6 @@ paths:
           description: Payment not found.
 components:
   schemas:
-    AchPaymentListResponse:
-      type: object
-      properties:
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AchPayment'
-        nextPageToken:
-          type: string
-        totalCount:
-          type: integer
     AchPayment:
       type: object
       properties:
@@ -198,6 +187,17 @@ components:
         traceNumber:
           type: string
           description: NACHA trace number assigned at submission.
+    AchPaymentListResponse:
+      type: object
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchPayment'
+        nextPageToken:
+          type: string
+        totalCount:
+          type: integer
     AchPaymentRequest:
       type: object
       required:
