@@ -29,6 +29,8 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/wells-fargo.png
 tags:
 - Fortune 100
+- Banking
+- Consumer Banking
 url: https://raw.githubusercontent.com/api-evangelist/wells-fargo/refs/heads/main/apis.yml
 modified: '2026-05-19'
 description: Wells Fargo is a diversified, community-based financial services company
