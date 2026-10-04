@@ -76,6 +76,13 @@ paths:
     - url: https://api.wellsfargo.com
 components:
   schemas:
+    AccountListResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
     AccountBalance:
       type: object
       properties:
@@ -119,13 +126,6 @@ components:
           - ACTIVE
           - INACTIVE
           - CLOSED
-    AccountListResponse:
-      type: object
-      properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
   securitySchemes:
     oauth2:
       type: oauth2
