@@ -77,3 +77,85 @@ plans:
   period: month
   unit: software plan
   included_quota: Entry-level payment processing up to advanced industry plans
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  - subscription
+  units:
+  - transaction
+  plans:
+  - name: Transaction processing $0 - $39,999.99 (tap, dip, or swipe)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - transaction
+    periods:
+    - other
+  - name: Transaction processing $0 - $39,999.99 (online or keyed in)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - transaction
+    periods:
+    - other
+  - name: Transaction processing $40,000 - $79,999.99 (tap, dip, or swipe)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - transaction
+    periods:
+    - other
+  - name: Transaction processing $40,000 - $79,999.99 (online or keyed in)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - transaction
+    periods:
+    - other
+  - name: Transaction processing $80,000 and up (tap, dip, or swipe)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - transaction
+    periods:
+    - other
+  - name: Transaction processing $80,000 and up (online or keyed in)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - transaction
+    periods:
+    - other
+  - name: Merchant account fee
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: PCI Compliance Program fee
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Clover software plans
+    access: other
+    model: free
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
