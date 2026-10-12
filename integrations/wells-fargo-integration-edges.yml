@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/wells-fargo/integrations
 - https://n8n.io/integrations/wells-fargo/
@@ -9,8 +9,26 @@ checked:
 - https://composio.dev/toolkits/wells-fargo
 - https://monid.ai/tools/wells-fargo
 - https://n8n.io/integrations/wells-fargo/
+- https://www.openbanking.org.uk/regulated-providers/wells-fargo-bank-national-association/
 - https://zapier.com/apps/wells-fargo/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: UK Open Banking
+  partner: null
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.openbanking.org.uk/regulated-providers/wells-fargo-bank-national-association/
+  contract_reference:
+    register: UK Open Banking regulated providers (OBL directory)
+    spec_file: null
+    role: Account Providers
+    registered_name: Wells Fargo Bank, National Association
+    register_id: https://register.fca.org.uk/s/firm?id=001b000000MfpdOAAR
+    matched_domain: wellsfargo.com
+    api_families: null
+    detected_by: sweep-standard-registers.py
+    detected: '2026-10-12'
 templates: []
