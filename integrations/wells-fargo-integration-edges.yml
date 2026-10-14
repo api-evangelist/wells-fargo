@@ -12,6 +12,7 @@ checked:
 - https://registry.financialdataexchange.org/
 - https://www.openbanking.org.uk/regulated-providers/wells-fargo-bank-national-association/
 - https://zapier.com/apps/wells-fargo/integrations
+- servicetitan/integrations/servicetitan-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
@@ -57,4 +58,21 @@ edges:
     detected: '2026-10-14'
   detected_by: sweep-fdx.py
   first_seen: '2026-10-14'
+- partner_name: ServiceTitan (own)
+  partner: servicetitan
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.servicetitan.com/partner/wells-fargo
+  mirror_of: servicetitan/integrations/servicetitan-integration-edges.yml
+  apps:
+  - Wells Fargo
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Payments & Financing
 templates: []

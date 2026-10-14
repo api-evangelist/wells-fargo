@@ -50,3 +50,16 @@
     detected: '2026-10-14'
   status: not-a-workflow
   arazzo: null
+- slug: wells-fargo-servicetitan-own
+  label: ServiceTitan (own)
+  partner: servicetitan
+  partner_name: ServiceTitan (own)
+  category: Payments & Financing
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.servicetitan.com/partner/wells-fargo
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
