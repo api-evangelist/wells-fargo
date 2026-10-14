@@ -9,6 +9,7 @@ checked:
 - https://composio.dev/toolkits/wells-fargo
 - https://monid.ai/tools/wells-fargo
 - https://n8n.io/integrations/wells-fargo/
+- https://registry.financialdataexchange.org/
 - https://www.openbanking.org.uk/regulated-providers/wells-fargo-bank-national-association/
 - https://zapier.com/apps/wells-fargo/integrations
 summary: null
@@ -31,4 +32,29 @@ edges:
     api_families: null
     detected_by: sweep-standard-registers.py
     detected: '2026-10-12'
+- partner_name: FDX (Financial Data Exchange)
+  partner: fdx
+  type: contract
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.financialdataexchange.org/
+  contract_reference:
+    register: FDX Registry
+    standard: FDX API
+    spec_file: null
+    register_api: https://registry.financialdataexchange.org/fdxregistryapi/organizations/search/listingTags
+    role: data-provider
+    member_type: MEMBER
+    registered_name: Wells Fargo
+    register_id: 93
+    registered_website: https://www.wellsfargo.com
+    country: United States
+    fdx_version:
+    - '4.6'
+    matched_by: domain:wellsfargo.com
+    detected_by: sweep-fdx.py
+    detected: '2026-10-14'
+  detected_by: sweep-fdx.py
+  first_seen: '2026-10-14'
 templates: []
