@@ -59,23 +59,6 @@ edges:
     detected: '2026-10-14'
   detected_by: sweep-fdx.py
   first_seen: '2026-10-14'
-- partner_name: ServiceTitan (own)
-  partner: servicetitan
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.servicetitan.com/partner/wells-fargo
-  mirror_of: servicetitan/integrations/servicetitan-integration-edges.yml
-  apps:
-  - Wells Fargo
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Payments & Financing
 - partner_name: ISO 10383 (MIC)
   partner: null
   type: register
@@ -124,4 +107,21 @@ edges:
     detected: '2026-10-15'
   detected_by: sweep-capital-markets.py
   first_seen: '2026-10-15'
+- partner_name: ServiceTitan (own)
+  partner: servicetitan
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.servicetitan.com/partner/wells-fargo
+  mirror_of: servicetitan/integrations/servicetitan-integration-edges.yml
+  apps:
+  - Wells Fargo
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Payments & Financing
 templates: []
