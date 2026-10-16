@@ -2,17 +2,17 @@
 kin_checks:
   slug: wells-fargo
   schema_version: 0.23.0
-  scored_at: '2026-10-03'
-  run_ts: 2026-10-03T024842
+  scored_at: '2026-10-11'
+  run_ts: 2026-10-11T110117
   note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
     apply in `na`. Everything else in rubric/scoring-0.23.0.yml was earned; counts
     below let you verify that.
   counts:
     total: 153
-    earned: 25
+    earned: 26
     partial: 30
-    missed: 70
-    na: 28
+    missed: 73
+    na: 24
   checks:
   - id: tags_present
     status: missed
@@ -108,6 +108,10 @@ kin_checks:
     status: missed
   - id: reg_named_standard_conformance
     status: missed
+  - id: reg_fapi_profile
+    status: missed
+  - id: reg_write_surface
+    status: missed
   - id: reg_sbom
     status: missed
   - id: reg_support_lifetime
@@ -131,6 +135,8 @@ kin_checks:
   - id: reg_transparency_report
     status: missed
   - id: reg_exit_assistance
+    status: missed
+  - id: reg_mandate_verified
     status: missed
   - id: upsert_outcome_discriminator
     status: missed
@@ -308,13 +314,9 @@ kin_checks:
   - reg_ai_transparency
   - reg_camara_conformance
   - reg_certification_signal
-  - reg_consent_model
   - reg_entitlement_terms
-  - reg_fapi_profile
-  - reg_mandate_verified
   - reg_pci_sca
   - reg_smart_configuration
   - reg_training_data_summary
-  - reg_write_surface
   - security_schemes
   - server_bindings
