@@ -10,8 +10,10 @@ checked:
 - https://monid.ai/tools/wells-fargo
 - https://n8n.io/integrations/wells-fargo/
 - https://registry.financialdataexchange.org/
+- https://reports.adviserinfo.sec.gov/reports/CompilationReports/IA_FIRM_SEC_Feed_10_17_2026.xml.gz
 - https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv
 - https://www.openbanking.org.uk/regulated-providers/wells-fargo-bank-national-association/
+- https://www.wealthbox.com/wp-json/wp/v2/integrations?per_page=100&page=1
 - https://zapier.com/apps/wells-fargo/integrations
 - servicetitan/integrations/servicetitan-integration-edges.yml
 summary: null
@@ -124,4 +126,37 @@ edges:
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
   category: Payments & Financing
+- partner_name: SEC (investment adviser registration)
+  partner: null
+  partner_match: register
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://adviserinfo.sec.gov/firm/summary/11025
+  category: Investment adviser
+  contract_reference:
+    register: SEC Investment Adviser Public Disclosure (IAPD compilation feed, Form ADV Part 1A)
+    spec_file: null
+    standard: Investment Advisers Act of 1940 (SEC Form ADV)
+    role: sec-registered-investment-adviser
+    registered_name: WELLS FARGO ADVISORS FINANCIAL NETWORK, LLC
+    business_name: WELLS FARGO ADVISORS
+    register_id: CRD 11025
+    sec_file_number: 801-57434
+    registration_status: APPROVED
+    registered_since: '2000-04-03'
+    main_office: ST. LOUIS, MO, United States
+    matched_domain: wellsfargo.com
+    matched_by: domain
+    identity_source: registrant's own Form ADV Item 1.I website address (no lookup)
+    custody_of_client_assets: true
+    signal_note: 'participation only: SEC registration is not a certification; firm type, custody and office are
+      context, never counted; regulatory AUM is not recorded (breadth is not credit)'
+    detected_by: sweep-asset-management.py
+    detected: '2026-10-18'
+    other_registrations:
+    - WELLS FARGO CLEARING SERVICES, LLC (CRD 19616)
+  detected_by: sweep-asset-management.py
+  first_seen: '2026-10-18'
 templates: []
