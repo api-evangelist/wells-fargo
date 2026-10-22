@@ -28,6 +28,10 @@ checked:
 - https://vpr.hkma.gov.hk/eng/regulatory-resources/registers/register-of-ais-and-lros/
 - https://www.hkma.gov.hk/eng/regulatory-resources/registers/register-of-svf-licensees/
 - https://www.sfc.hk/en/Regulatory-functions/Intermediaries/Licensing/Register-of-licensed-persons-and-registered-institutions
+- https://api.fdic.gov/banks/history
+- https://api.fdic.gov/banks/institutions?filters=ACTIVE:1&fields=NAME,WEBADDR,CERT,ASSET,STALP
+- https://www.ncua.gov/files/publications/analysis/call-report-data-2025-06.zip
+- https://www.ncua.gov/files/publications/analysis/federally-insured-credit-union-list-june-2025.zip
 summary: null
 marketplace_apps: []
 edges:
@@ -230,5 +234,56 @@ edges:
     detected_by: sweep-hong-kong-sfc-licensed.py
     detected: '2026-10-22'
   detected_by: sweep-hong-kong-sfc-licensed.py
+  first_seen: '2026-10-22'
+- partner_name: FDIC BankFind insured institutions
+  partner: null
+  partner_match: register
+  type: register
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://api.fdic.gov/banks/institutions?filters=ACTIVE:1&fields=NAME,WEBADDR,CERT,ASSET,STALP
+  category: US FDIC-insured depository institution charter
+  contract_reference:
+    register: FDIC BankFind insured institutions
+    spec_file: null
+    standard: null
+    role: insured-depository-institution
+    registrations:
+    - registered_name: Wells Fargo National Bank West
+      register_status: active
+      register_country: US
+      register_id: '27389'
+      matched_domain: wellsfargo.com
+      matched_by: domain
+      licences:
+      - FDIC-insured institution (CERT 27389)
+      evidence_url: https://banks.data.fdic.gov/bankfind-suite/bankfind/details/27389
+      state: NV
+    - registered_name: Wells Fargo Bank, National Association
+      register_status: active
+      register_country: US
+      register_id: '3511'
+      matched_domain: wellsfargo.com
+      matched_by: domain
+      licences:
+      - FDIC-insured institution (CERT 3511)
+      evidence_url: https://banks.data.fdic.gov/bankfind-suite/bankfind/details/3511
+      state: SD
+    - registered_name: Wells Fargo Bank South Central, National Association
+      register_status: active
+      register_country: US
+      register_id: '5146'
+      matched_domain: wellsfargo.com
+      matched_by: domain
+      licences:
+      - FDIC-insured institution (CERT 5146)
+      evidence_url: https://banks.data.fdic.gov/bankfind-suite/bankfind/details/5146
+      state: TX
+    signal_note: 'participation only: a federal deposit-insurance charter on a regulator register; no API conformance
+      is published by this register'
+    detected_by: sweep-us-bank-credit-union-registers.py
+    detected: '2026-10-22'
+  detected_by: sweep-us-bank-credit-union-registers.py
   first_seen: '2026-10-22'
 templates: []
